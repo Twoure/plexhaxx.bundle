@@ -1745,7 +1745,7 @@
         "repo"            :     "git@github.com:mikedm139/UnSupportedAppstore.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.unsupportedappstore",
-        "icon"            :     "icon-default.png",
+        "icon"            :     "unsupportedappstore-icon.png",
         "hidden"          :     "False",
         "date added"      :     "April 9, 2011",
         "tracking url"    :     ""
