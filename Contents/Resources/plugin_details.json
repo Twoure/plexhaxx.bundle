@@ -1,4 +1,4 @@
- [
+[
     {
         "title"           :     "4oD (UK)",
         "bundle"          :     "4oD.bundle",
@@ -21,9 +21,36 @@
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.4tube",
         "icon"            :     "4tube-icon.png",
-        "hidden"          :     "True",
+        "hidden"          :     "False",
         "date added"      :     "April 17, 2011",
         "tracking url"    :     "http://bit.ly/Yq1TFe"
+    },
+    {
+        "title"           :     "500px",
+        "bundle"          :     "500px.bundle",
+        "type"            :     ["Pictures"],
+        "description"     :     "Share and View Photos on 500px.com",
+        "repo"            :     "git@github.com:dnachev/500px.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.500px",
+        "icon"            :     "500px-icon.png",
+        "hidden"          :     "True",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1Lisn2x"
+    },
+    {
+        "title"           :     "AMC",
+        "bundle"          :     "AMC.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch videos from AMC.com",
+        "repo"            :     "git@github.com:aatron/amc.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.amc",
+        "icon"            :     "amc-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Empty Reop",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1N3JGp7"
     },
     {
         "title"           :     "AniDB.net Metadata Agent",
@@ -47,7 +74,8 @@
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.animehd",
         "icon"            :     "animehd-icon.png",
-        "hidden"          :     "False",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
         "date added"      :     "July 20, 2014",
         "tracking url"    :     "http://bit.ly/1mxiTCe"
     },
@@ -91,6 +119,32 @@
         "tracking url"    :     "http://bit.ly/1iIq7T0"
     },
     {
+        "title"           :     "AudioAddict",
+        "bundle"          :     "AudioAddict.bundle",
+        "type"            :     ["Music"],
+        "description"     :     "Interface for the AudioAddict family of music streaming sites, including DI.fm, RadioTunes.com (formerly Sky.fm), and others.",
+        "repo"            :     "git@github.com:phrawzty/AudioAddict.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.audioaddict",
+        "icon"            :     "audioaddict-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1enCfh5"
+    },
+    {
+        "title"           :     "BallPlex",
+        "bundle"          :     "BallPlex.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Stream live Ball Games",
+        "repo"            :     "git@github.com:kevcenteno/BallPlex.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.ballplex",
+        "icon"            :     "ballplex-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1FmTe8r"
+    },
+    {
         "title"           :     "Bay FM 99.9FM",
         "bundle"          :     "BayFM999.bundle",
         "type"            :     ["Music"],
@@ -98,7 +152,7 @@
         "repo"            :     "git@github.com:jab-au/BayFM999.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.BayFM999",
-        "icon"            :     "bayfm999-icon.jpg",
+        "icon"            :     "bayfm999-icon.png",
         "hidden"          :     "False",
         "date added"      :     "October 25, 2013",
         "tracking url"    :     "http://bit.ly/1eVKuvA"
@@ -156,6 +210,33 @@
         "tracking url"    :     "http://bit.ly/1dRo0ut"
     },
     {
+        "title"           :     "Bravo (Apple Only)",
+        "bundle"          :     "Bravo.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Vidoes from Bravo",
+        "repo"            :     "git@github.com:shopgirl284/Bravo.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.bravo",
+        "icon"            :     "bravo-icon.png",
+        "hidden"          :     "False",
+        "reason_hidden"   :     "Outdated",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1HUGEDw"
+    },
+    {
+        "title"           :     "cCloud TV BETA | Popcorntime for LIVE TV",
+        "bundle"          :     "CcloudTv.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "cCloud-Popcorntime for LIVE TV",
+        "repo"            :     "https://github.com/coder-alpha/CcloudTv.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.CcloudTv",
+        "icon"            :     "icon-ccloudtv.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1JTXrs4"
+    },
+    {
         "title"           :     "Channel7 (AU)",
         "bundle"          :     "Channel7.bundle",
         "type"            :     ["Video"],
@@ -164,8 +245,8 @@
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.channel7",
         "icon"            :     "seven.png",
-        "hidden"          :     "True",
-        "date added"      :     "May 5, 2013",
+        "hidden"          :     "False",
+        "date added"      :     "May 05, 2013",
         "tracking url"    :     "http://bit.ly/13WVxPd"
     },
     {
@@ -178,7 +259,7 @@
         "identifier"      :     "com.plexapp.plugins.channel9",
         "icon"            :     "nine.png",
         "hidden"          :     "False",
-        "date added"      :     "May 5, 2013",
+        "date added"      :     "May 05, 2013",
         "tracking url"    :     "http://bit.ly/16ajXZT"
     },
     {
@@ -191,8 +272,21 @@
         "identifier"      :     "com.plexapp.plugins.channel10",
         "icon"            :     "ten.png",
         "hidden"          :     "False",
-        "date added"      :     "May 5, 2013",
+        "date added"      :     "May 05, 2013",
         "tracking url"    :     "http://bit.ly/YxSYFa"
+    },
+    {
+        "title"           :     "channel PEAR",
+        "bundle"          :     "channelpear.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "A collaborative, cloud-based media platform that enables you to discover, share, and watch live content from around the world on your favorite devices.",
+        "repo"            :     "https://github.com/Jidly/channelpear.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.channelpear",
+        "icon"            :     "channelpear-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1J4zDBN"
     },
     {
         "title"           :     "Christian Science",
@@ -215,7 +309,7 @@
         "repo"            :     "git@github.com:piplongrun/ClickPlay.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.clickplay",
-        "icon"            :     "clickplay-icon.jpg",
+        "icon"            :     "clickplay-icon.png",
         "hidden"          :     "False",
         "date added"      :     "February 20, 2014",
         "tracking url"    :     "http://bit.ly/1cbMQDP"
@@ -260,6 +354,19 @@
         "tracking url"    :     "http://bit.ly/14UJOAj"
     },
     {
+        "title"           :     "Crunchyroll-Free",
+        "bundle"          :     "Crunchyroll.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch over 20,000 episodes of popular Anime & Drama 1-Hour after TV broadcast from the website Crunchyroll.com.",
+        "repo"            :     "git@github.com:pgp90/Plex-Crunchyroll-plugin.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.crunchyroll",
+        "icon"            :     "crunchyroll-free-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1GgjcuX"
+    },
+    {
         "title"           :     "Dabdate",
         "bundle"          :     "Dabdate.bundle",
         "type"            :     ["Video"],
@@ -299,6 +406,20 @@
         "tracking url"    :     "http://bit.ly/1czMc2G"
     },
     {
+        "title"           :     "DesiTV",
+        "bundle"          :     "DesiTV.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Videos from the Desi Entertainment Network.",
+        "repo"            :     "git@github.com:coder-alpha/DesiTV.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.desitv",
+        "icon"            :     "desitv-icon.png",
+        "hidden"          :     "True",
+        "readon_hidden"   :     "Think it may be region specific or outdated",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1UpyvLs"
+    },
+    {
         "title"           :     "Devour",
         "bundle"          :     "Devour.bundle",
         "type"            :     ["Video"],
@@ -320,10 +441,23 @@
         "repo"            :     "git@github.com:ukdtom/DevTools.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.DevTools",
-        "icon"            :     "DevTools.png",
+        "icon"            :     "devtools-icon.png",
         "hidden"          :     "False",
         "date added"      :     "Sep 21, 2014",
         "tracking url"    :     "http://bit.ly/1rlcQZx"
+    },
+    {
+        "title"           :     "Digg",
+        "bundle"          :     "Digg.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "What the Internet is talking about right now from Digg.com",
+        "repo"            :     "git@github.com:koogunmo/Digg.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.digg",
+        "icon"            :     "digg-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1d226tw"
     },
     {
         "title"           :     "Discovery Networks",
@@ -339,6 +473,19 @@
         "tracking url"    :     "http://bit.ly/1412CAz"
     },
     {
+        "title"           :     "DIY Network",
+        "bundle"          :     "DIYNetwork.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Vidoes from DIY Networks",
+        "repo"            :     "git@github.com:MeatloafAgain/DIYNetwork.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.diynetwork",
+        "icon"            :     "diynetwork-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1DtEQ4m"
+    },
+    {
         "title"           :     "Dropbox",
         "bundle"          :     "Dropbox.bundle",
         "type"            :     ["Video"],
@@ -350,6 +497,19 @@
         "hidden"          :     "False",
         "date added"      :     "February 28, 2014",
         "tracking url"    :     "http://bit.ly/1k0mYjX"
+    },
+    {
+        "title"           :     "Dump",
+        "bundle"          :     "Dump.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "View content from the Dump.com site.",
+        "repo"            :     "git@github.com:TehCrucible/dump.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.dump",
+        "icon"            :     "dump-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1M6lKmh"
     },
     {
         "title"           :     "eporner",
@@ -495,6 +655,20 @@
         "tracking url"    :     "http://bit.ly/1kXldpj"
     },
     {
+        "title"           :     "gPodder",
+        "bundle"          :     "gPodder.bundle",
+        "type"            :     ["Application"],
+        "description"     :     "Stream and manage feeds from your gPodder.net account",
+        "repo"            :     "git@github.com:nolsto/gPodder.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.nolsto.plex.plugins.gpodder",
+        "icon"            :     "gpodder-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "outdated",
+        "date added"      :     "June 19, 2015",
+        "tracking url"    :     "http://bit.ly/1GUm4lW"
+    },
+    {
         "title"           :     "Grooveshark",
         "bundle"          :     "Grooveshark.bundle",
         "type"            :     ["Music"],
@@ -508,24 +682,50 @@
         "tracking url"    :     "http://bit.ly/1gSVzgy"
     },
     {
+        "title"           :     "HAMA Metadata Agent",
+        "bundle"          :     "HAMA.bundle",
+        "type"            :     ["Metadata Agent"],
+        "description"     :     "Plex HTTP Anidb Metadata Agent (HAMA)",
+        "repo"            :     "git@github.com:ZeroQI/Hama.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.agents.hama",
+        "icon"            :     "metadata-agent-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1IIRB6R"
+    },
+    {
         "title"           :     "HDBits Subtitles",
         "bundle"          :     "HdbitsSubtitles.bundle",
         "type"            :     ["Metadata Agent", "Subtitles"],
         "description"     :     "Downloads subtitles automatically from HDBits.org (Private torrent tracker)",
         "repo"            :     "git@github.com:Coi-l/HdbitsSubtitles.bundle.git",
-        "identifier"      :     "com.plexapp.agents.hdbits",
         "branch"          :     "master",
+        "identifier"      :     "com.plexapp.agents.hdbits",
         "icon"            :     "hdbits-icon.png",
         "hidden"          :     "False",
         "date added"      :     "June 21, 2011",
         "tracking url"    :     "http://bit.ly/R5pW8F"
     },
     {
+        "title"           :     "HDMoviesDownload",
+        "bundle"          :     "HDMoviesDownload.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch media content from HDMoviesDownload.pro",
+        "repo"            :     "git@github.com:jwsolve/HDMoviesDownload.bundle.git",
+        "identifier"      :     "com.plexapp.plugins.hdmoviesdownload",
+        "branch"          :     "master",
+        "icon"            :     "hdmoviesdownload-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1MciM0X"
+    },
+    {
         "title"           :     "HDSerials",
         "bundle"          :     "HDSerials.bundle",
         "type"            :     ["Video"],
-        "description"     :     "Watch TV shows, movies in Russian from HDSerials.tv",
-        "repo"            :     "git@github.com:kolsys/HDSerials.bundle",
+        "description"     :     "Watch TV shows, Movies in Russian from HDSerials.tv",
+        "repo"            :     "git@github.com:kolsys/HDSerials.bundle.git",
         "identifier"      :     "com.plexapp.plugins.hdserials",
         "branch"          :     "master",
         "icon"            :     "hdserials-icon.png",
@@ -539,17 +739,30 @@
         "type"            :     ["Video"],
         "description"     :     "Watch streams from the HD Streaming website",
         "repo"            :     "git@github.com:papalozarou/HDStreaming.bundle.git",
-        "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.hdstreaming",
+        "branch"          :     "master",
         "icon"            :     "hdstreaming-icon.png",
-        "hidden"          :     "False",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
         "date added"      :     "September 5, 2014",
         "tracking url"    :     "http://bit.ly/1tdyfAS"
     },
     {
+        "title"           :     "HindiLinks4u",
+        "bundle"          :     "HindiLinks4u.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch media content from www.HindiLinks4u.to",
+        "repo"            :     "git@github.com:coder-alpha/HindiLinks4u.bundle.git",
+        "identifier"      :     "com.plexapp.plugins.hindilinks4u",
+        "branch"          :     "master",
+        "icon"            :     "hindilinks4u-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1P7Cz00"
+    },
+    {
         "title"           :     "Hitbox.tv",
         "bundle"          :     "Hitbox.tv.bundle",
-        "prefix"          :     "",
         "type"            :     ["Video"],
         "description"     :     "Allows streaming of Hitbox.tv live streams",
         "repo"            :     "git@github.com:r15ch13/Hitbox.tv.bundle.git",
@@ -559,6 +772,47 @@
         "hidden"          :     "False",
         "date added"      :     "July 25, 2014",
         "tracking url"    :     "http://bit.ly/XaOPrB"
+    },
+    {
+        "title"           :     "HockeyPlex",
+        "bundle"          :     "HockeyPlexbundle",
+        "type"            :     ["Video"],
+        "description"     :     "Allows streaming from HockeyStreams.com",
+        "repo"            :     "git@github.com:gritstub/HockeyPlex.bundle.git",
+        "identifier"      :     "com.plexapp.plugins.hockeyplex",
+        "branch"          :     "master",
+        "icon"            :     "hockeyplex-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
+        "date added"      :     "August 06, 2015",
+        "tracking url"    :     "http://bit.ly/1OTGoFj"
+    },
+    {
+        "title"           :     "Hulu",
+        "bundle"          :     "Hulu.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch videos on Hulu.com",
+        "repo"            :     "git@github.com:pierre1313/hulu.bundle.git",
+        "identifier"      :     "com.plexapp.plugins.hulu",
+        "branch"          :     "master",
+        "icon"            :     "hulu-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1d24BMs"
+    },
+    {
+        "title"           :     "Hummingbird Metadata Agent",
+        "bundle"          :     "Hummingbird.bundle",
+        "type"            :     ["Metadata Agent"],
+        "description"     :     "Simple plex agent for Hummingbird.me",
+        "repo"            :     "git@github.com:Keltere/Hummingbird.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.agents.hummingbird",
+        "icon"            :     "hummingbird-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1QEbKF9"
     },
     {
         "title"           :     "IceFilms",
@@ -620,8 +874,9 @@
         "repo"            :     "git@github.com:piplongrun/iSho-ws.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.ishows",
-        "icon"            :     "isho-ws-icon.jpg",
-        "hidden"          :     "False",
+        "icon"            :     "isho-ws-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
         "date added"      :     "February 20, 2014",
         "tracking url"    :     "http://bit.ly/1cbMWvc"
     },
@@ -653,16 +908,29 @@
     },
     {
         "title"           :     "Let Me Watch This",
-        "bundle"          :     "LetMeWatchThis.bundle",
+        "bundle"          :     "lmwt-kiss.bundle",
         "type"            :     ["Video"],
         "description"     :     "Watch Movies and TV Shows from 1Channel.ch (Let Me Watch This)",
-        "repo"            :     "git@github.com:ReallyFuzzy/LetMeWatchThis.bundle.git",
+        "repo"            :     "git@github.com:piplongrun/lmwt-kiss.bundle.git",
         "branch"          :     "master",
-        "identifier"      :     "com.plexapp.plugins.letmewatchthis",
+        "identifier"      :     "com.plexapp.plugins.lmwt.kiss",
         "icon"            :     "lmwt-icon.png",
         "hidden"          :     "False",
-        "date added"      :     "January 22, 2012",
-        "tracking url"    :     "http://bit.ly/SqvbPi"
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1Gg2ax8"
+    },
+    {
+        "title"           :     "Liga de Fútbol Profesional (LFP)",
+        "bundle"          :     "LFP.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Videos from www.laliga.es",
+        "repo"            :     "git@github.com:manfer/LFP.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.lfp",
+        "icon"            :     "lfp-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1KSbpsm"
     },
     {
         "title"           :     "Library Updater",
@@ -676,6 +944,19 @@
         "hidden"          :     "False",
         "date added"      :     "April 9, 2011",
         "tracking url"    :     "http://bit.ly/1lFSWox"
+    },
+    {
+        "title"           :     "LihatTV",
+        "bundle"          :     "LihatTV.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Indian based iptv channels",
+        "repo"            :     "git@github.com:Twoure/LihatTV.bundle.git",
+        "branch"          :     "dev",
+        "identifier"      :     "com.plexapp.plugins.lihattv",
+        "icon"            :     "lihattv-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "July 29, 2015",
+        "tracking url"    :     "http://bit.ly/1SNW0v2"
     },
     {
         "title"           :     "Link TV",
@@ -717,6 +998,20 @@
         "tracking url"    :     "http://bit.ly/19tdh5o"
     },
     {
+        "title"           :     "MailRu",
+        "bundle"          :     "MailRu.bundle",
+        "type"            :     ["Video", "Pictures", "Music"],
+        "description"     :     "View and listen to the audio, video and photo content from social network My Мир@Mail.Ru",
+        "repo"            :     "git@github.com:kolsys/MailRu.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.mailru",
+        "icon"            :     "mailru-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Might be region restricted or Outdated",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1KSoS6q"
+    },
+    {
         "title"           :     "Mangafox",
         "bundle"          :     "Mangafox.bundle",
         "type"            :     ["Pictures"],
@@ -743,6 +1038,19 @@
         "tracking url"    :     "http://bit.ly/196neq5"
     },
     {
+        "title"           :     "Motherless",
+        "bundle"          :     "Motherless.bundle",
+        "type"            :     ["Video", "Adult"],
+        "description"     :     "Watch Videos from Motherless.com",
+        "repo"            :     "git@github.com:NotVinny/Motherless.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.motherless",
+        "icon"            :     "motherless-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1DvNyie"
+    },
+    {
         "title"           :     "Movie2k",
         "bundle"          :     "MOVIE2K.bundle",
         "type"            :     ["Video"],
@@ -754,6 +1062,20 @@
         "hidden"          :     "False",
         "date added"      :     "August 4, 2013",
         "tracking url"    :     "http://bit.ly/13IkZGU"
+    },
+    {
+        "title"           :     "Movie Tube",
+        "bundle"          :     "MovieTube.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch shows from MovieTubeNow.com",
+        "repo"            :     "git@github.com:WhatsARanjit/MovieTube.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.movietube",
+        "icon"            :     "movietube-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1W367jX"
     },
     {
         "title"           :     "MTV Shows",
@@ -789,7 +1111,7 @@
         "repo"            :     "git@github.com:datvance/NBCSports.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.nbcsports",
-        "icon"            :     "nbcsports-icon.jpg",
+        "icon"            :     "nbcsports-icon.png",
         "hidden"          :     "False",
         "date added"      :     "December 01, 2013",
         "tracking url"    :     "http://bit.ly/1bBXhoq"
@@ -834,17 +1156,17 @@
         "tracking url"    :     "http://bit.ly/18ap0bt"
     },
     {
-        "title"           :     "nick reboot",
+        "title"           :     "Nick Reboot",
         "bundle"          :     "nickreboot.bundle",
         "type"            :     ["Video"],
         "description"     :     "feed your inner child - plex channel for http://nickreboot.com/",
-        "repo"            :     "git@github.com:nickreboot/nickreboot.bundle.git",
+        "repo"            :     "git@github.com:PlexHaxx/nickreboot.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.nickreboot",
         "icon"            :     "nickreboot-icon.png",
         "hidden"          :     "False",
-        "date added"      :     "September 24, 2014",
-        "tracking url"    :     "http://bit.ly/1t4SMWW"
+        "date added"      :     "August 06, 2015",
+        "tracking url"    :     "http://bit.ly/1MdDTQs"
     },
     {
         "title"           :     "NowThis News",
@@ -856,7 +1178,7 @@
         "identifier"      :     "com.plexapp.plugins.nowthisnews",
         "icon"            :     "nowthisnews-icon.png",
         "hidden"          :     "True",
-        "reason_hidden"	  :	"Now available via the Channel Directory",
+        "reason_hidden"	  :	    "Now available via the Channel Directory",
         "date added"      :     "September 1, 2014",
         "tracking url"    :     "http://bit.ly/1vFf4EH"
     },
@@ -900,11 +1222,25 @@
         "tracking url"    :     "http://bit.ly/RTzhor"
     },
     {
-        "title"           :     "Phimvang",
-        "bundle"          :     "Phimvang.bundle",
+        "title"           :     "OZ",
+        "bundle"          :     "OZ.bundle",
         "type"            :     ["Video"],
-        "description"     :     "watch movies on phimvang.org ",
-        "repo"            :     "https://github.com/traitravinh/Phimvang.bundle.git",
+        "description"     :     "Watch Videos from OZ.com",
+        "repo"            :     "git@github.com:birkir/OZ.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.oz",
+        "icon"            :     "oz-icon.png",
+        "hidden"          :     "False",
+	      "reason_hidden"   :	    "Outdated",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1L0u86v"
+    },
+    {
+        "title"           :     "PhimVang",
+        "bundle"          :     "PhimVang.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Movies on PhimVang.org",
+        "repo"            :     "git@github.com:traitravinh/Phimvang.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.phimvang",
         "icon"            :     "phimvang-icon.png",
@@ -969,13 +1305,13 @@
         "bundle"          :     "PornHub.bundle",
         "type"            :     ["Video", "Adult"],
         "description"     :     "Watch XXX-Videos from PornHub.com",
-        "repo"            :     "git@github.com:piplongrun/PornHub.bundle.git",
+        "repo"            :     "git@github.com:mattspunk/PornHub.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.pornhub",
         "icon"            :     "pornhub-icon.png",
         "hidden"          :     "True",
-        "date added"      :     "March 22, 2012",
-        "tracking url"    :     "http://bit.ly/RCmX7s"
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1TuUeSS"
     },
     {
         "title"           :     "PremierAdLive",
@@ -991,7 +1327,20 @@
         "date added"      :     "September 5, 2014",
         "tracking url"    :     "http://bit.ly/YkI1Iq"
     },
-	{
+    {
+        "title"           :     "Rainierland",
+        "bundle"          :     "Rainierland.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "View content indexed by the website Rainierland.com",
+        "repo"            :     "git@github.com:coder-alpha/Rainierland.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.rainierland",
+        "icon"            :     "rainierland-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 18, 2015",
+        "tracking url"    :     "http://bit.ly/1TyLn2x"
+    },
+    {
         "title"           :     "rawrANIME.tv",
         "bundle"          :     "rawrANIME.bundle",
         "type"            :     ["Video"],
@@ -1009,14 +1358,14 @@
         "bundle"          :     "Rdio.bundle",
         "type"            :     ["Music"],
         "description"     :     "Stream music from Rdio.com",
-        "repo"            :     "git@github.com:mikedecaro/Rdio.bundle.git",
+        "repo"            :     "git@github.com:wiamott/Rdio.bundle.git",
         "branch"          :     "master",
-        "identifier"      :     "",
+        "identifier"      :     "com.plexapp.plugins.rdio",
         "icon"            :     "rdio-icon.png",
         "hidden"          :     "True",
-        "reason_hidden"   :     "available in Channel Directory",
-        "date added"      :     "June 28, 2011",
-        "tracking url"    :     ""
+        "reason_hidden"   :     "outdated, not compatible with new PMS",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1L0hX9K"
     },
     {
         "title"           :     "RedTube",
@@ -1080,8 +1429,22 @@
         "identifier"      :     "com.plexapp.plugins.sbs",
         "icon"            :     "sbs.png",
         "hidden"          :     "False",
-        "date added"      :     "May 5, 2013",
+        "date added"      :     "May 05, 2013",
         "tracking url"    :     "http://bit.ly/12Guohc"
+    },
+    {
+        "title"           :     "Short of the Week",
+        "bundle"          :     "sotw.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Plex Channel for Short of the Week website",
+        "repo"            :     "git@github.com:manfer/Short-of-the-Week.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.sotw",
+        "icon"            :     "sotw-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
+        "date added"      :     "August 06, 2015",
+        "tracking url"    :     "http://bit.ly/1T7wKA5"
     },
     {
         "title"           :     "SickBeard",
@@ -1099,8 +1462,8 @@
     {
         "title"           :     "SMI Convert",
         "bundle"          :     "SmiConvert.bundle",
-        "type"            :     ["Agent"],
-        "description"     :     "A agent to convert subtitles in SMI format to SRT format",
+        "type"            :     ["Metadata Agent"],
+        "description"     :     "An agent to convert subtitles in SMI format to SRT format",
         "repo"            :     "git@github.com:hojel/SmiConvert.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.agents.smiconvert",
@@ -1137,6 +1500,45 @@
         "tracking url"    :     "http://bit.ly/1n0kBiJ"
     },
     {
+        "title"           :     "Songza",
+        "bundle"          :     "Songza.bundle",
+        "type"            :     ["Music"],
+        "description"     :     "Songza music plugin for Plex Media Server",
+        "repo"            :     "git@github.com:redgoose/Songza.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.songza",
+        "icon"            :     "songza-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1dKxcqd"
+    },
+    {
+        "title"           :     "Sonarr (formally NzbDrone)",
+        "bundle"          :     "Sonarr.bundle",
+        "type"            :     ["Application"],
+        "description"     :     "Control Sonarr (formally NzbDrone) from Plex",
+        "repo"            :     "git@github.com:jamorin/Sonarr.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.sonarr",
+        "icon"            :     "sonarr-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 06, 2015",
+        "tracking url"    :     "http://bit.ly/1hlJZS5"
+    },
+    {
+        "title"           :     "Sound Opinions Podcast",
+        "bundle"          :     "SoundOpiniouns.bundle",
+        "type"            :     ["Music"],
+        "description"     :     "Sound Opinions Podcast. SoundOpinions.org",
+        "repo"            :     "git@github.com:mccainca/SoundOpinions.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.soundopinions",
+        "icon"            :     "soundopinions-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 06, 2015",
+        "tracking url"    :     "http://bit.ly/1SUS7tC"
+    },
+    {
         "title"           :     "SportseBooks",
         "bundle"          :     "SportseBooks.bundle",
         "type"            :     ["Video"],
@@ -1165,7 +1567,7 @@
     {
         "title"           :     "Srt2Utf-8",
         "bundle"          :     "SRT2UTF-8.bundle",
-        "type"            :     ["Agent"],
+        "type"            :     ["Metadata Agent"],
         "description"     :     "Plex Media Agent, that'll convert sidecar subtitle files into UTF-8, if not",
         "repo"            :     "git@github.com:ukdtom/SRT2UTF-8.bundle.git",
         "branch"          :     "master",
@@ -1180,13 +1582,41 @@
         "bundle"          :     "ss-plex.bundle",
         "type"            :     ["Video"],
         "description"     :     "Watch Movies and TV Shows from Icefilms, Watch Series, 1channel and more.",
-        "repo"            :     "git@github.com:mikew/ss-plex.bundle.git",
+        "repo"            :     "git@github.com:SockBramson/ss-plex.bundle.git",
+        "old_repo"        :     "git@github.com:mikew/ss-plex.bundle.git",
         "branch"          :     "stable",
         "identifier"      :     "com.plexapp.plugins.wso",
         "icon"            :     "ss-plex.png",
         "hidden"          :     "False",
-        "date added"      :     "October 11, 2012",
-        "tracking url"    :     "http://bit.ly/UksVwo"
+        "date added"      :     "July 22, 2015",
+        "tracking url"    :     "http://bit.ly/1RSJlvM",
+        "old_track url"   :     "http://bit.ly/UksVwo"
+    },
+    {
+        "title"           :     "Subliminal - Subtitles",
+        "bundle"          :     "Subliminal.bundle",
+        "type"            :     ["Metadata Agent", "Subtitles"],
+        "description"     :     "Plex Metadata agent plugin based on Subliminal. Agent will search on following sites OpenSubtitles, TheSubDB, Podnapisi.NET, Addic7ed, and TVsubtitles.net",
+        "repo"            :     "git@github.com:bramwalet/Subliminal.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.agents.subliminal",
+        "icon"            :     "metadata-agent-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 05, 2015",
+        "tracking url"    :     "http://bit.ly/1IYpaZc"
+    },
+    {
+        "title"           :     "Subsonic",
+        "bundle"          :     "Subsonic.bundle",
+        "type"            :     ["Application", "Music"],
+        "description"     :     "This channel should allow Subsonic streams to be played through Plex.",
+        "repo"            :     "git@github.com:babytof/Subsonic.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.subsonic",
+        "icon"            :     "subsonic-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 06, 2015",
+        "tracking url"    :     "http://bit.ly/1hlJCqu"
     },
     {
         "title"           :     "Sveriges Radio Play (SE)",
@@ -1209,7 +1639,7 @@
         "repo"            :     "git@github.com:piplongrun/Sweflix.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.sweflix",
-        "icon"            :     "sweflix-icon.jpg",
+        "icon"            :     "sweflix-icon.png",
         "hidden"          :     "False",
         "date added"      :     "February 20, 2014",
         "tracking url"    :     "http://bit.ly/1dgzyX3"
@@ -1226,6 +1656,19 @@
         "hidden"          :     "False",
         "date added"      :     "August 22, 2014",
         "tracking url"    :     "http://bit.ly/1sgqIkh"
+    },
+    {
+        "title"           :     "TiVoToGo",
+        "bundle"          :     "TiVoToGo.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch a stream off your TiVo or to download a recorded program from your TiVo",
+        "repo"            :     "git@github.com:tivoguy/TiVoToGo.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.tivotogo",
+        "icon"            :     "tivotogo-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "November 22, 2014",
+        "tracking url"    :     "http://bit.ly/1OUauIW"
     },
     {
         "title"           :     "Trakt.tv plugin",
@@ -1252,6 +1695,19 @@
         "hidden"          :     "False",
         "date added"      :     "April 29, 2014",
         "tracking url"    :     "http://bit.ly/1i9VQ2E"
+    },
+    {
+        "title"           :     "TVLand",
+        "bundle"          :     "tvland.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Show and Clips from TV Land Channel.",
+        "repo"            :     "git@github.com:shopgirl284/TVLand.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.tvland",
+        "icon"            :     "icon-tvland.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1N2B95T"
     },
     {
         "title"           :     "Unofficial IMDb API",
@@ -1341,7 +1797,7 @@
         "repo"            :     "git@github.com:JeppeTh/Viaplay.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.viaplay",
-        "icon"            :     "viaplay-icon.jpg",
+        "icon"            :     "viaplay-icon.png",
         "hidden"          :     "False",
         "date added"      :     "March 22, 2014",
         "tracking url"    :     "http://bit.ly/1jh2sP9"
@@ -1428,8 +1884,8 @@
     {
         "title"           :     "XBMCnfoMoviesImporter",
         "bundle"          :     "XBMCnfoMoviesImporter.bundle",
-        "type"            :     ["Agent"],
-        "description"     :     "Import Movies information from locally exported XBMC database. http://github.com/gboudreau/XBMCnfoMoviesImporter.bundle/archive/master.zip ",
+        "type"            :     ["Metadata Agent"],
+        "description"     :     "Import Movies information from locally exported XBMC database.",
         "repo"            :     "git@github.com:gboudreau/XBMCnfoMoviesImporter.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.agents.xbmcnfo",
@@ -1441,7 +1897,7 @@
     {
         "title"           :     "XBMCnfoTVImporter",
         "bundle"          :     "XBMCnfoTVImporter.bundle",
-        "type"            :     ["Agent"],
+        "type"            :     ["Metadata Agent"],
         "description"     :     "Import TVShow information from locally exported XBMC database.",
         "repo"            :     "git@github.com:gboudreau/XBMCnfoTVImporter.bundle.git",
         "branch"          :     "master",
@@ -1465,6 +1921,32 @@
         "tracking url"    :     "http://bit.ly/U42tel"
     },
     {
+        "title"           :     "xHamster-1",
+        "bundle"          :     "xHamster.bundle",
+        "type"            :     ["Video", "Pictures", "Adult"],
+        "description"     :     "Watch XXX-Videos from xHamster.com. Note: Only one xHamster Channel can be installed at a time.",
+        "repo"            :     "git@github.com:flownex/xHamster.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.xhamster",
+        "icon"            :     "xhamster1-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "April 27, 2011",
+        "tracking url"    :     "http://bit.ly/PvWLxl"
+    },
+    {
+        "title"           :     "xHamster-2",
+        "bundle"          :     "xHamster.bundle",
+        "type"            :     ["Video", "Adult"],
+        "description"     :     "Watch XXX-Videos from xHamster.com. Note: Only one xHamster Channel can be installed at a time.",
+        "repo"            :     "git@github.com:LanRochpenn/xHamster.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.xhamster",
+        "icon"            :     "xhamster2-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 18, 2015",
+        "tracking url"    :     "http://bit.ly/1Gkmldj"
+    },
+    {
         "title"           :     "xkcd",
         "bundle"          :     "xkcd.bundle",
         "type"            :     ["Pictures"],
@@ -1478,6 +1960,19 @@
         "tracking url"    :     "http://bit.ly/1h67pCP"
     },
     {
+        "title"           :     "XNXX",
+        "bundle"          :     "XNXX.bundle",
+        "type"            :     ["Video", "Adult"],
+        "description"     :     "Watch XXX-Videos from XNXX.COM",
+        "repo"            :     "git@github.com:flownex/XNXX.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.xnxx",
+        "icon"            :     "xnxx-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "April 23, 2011",
+        "tracking url"    :     "http://bit.ly/YF0CcD"
+    },
+    {
         "title"           :     "Yify",
         "bundle"          :     "Yify.bundle",
         "type"            :     ["Video"],
@@ -1486,54 +1981,61 @@
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.yify",
         "icon"            :     "yify-icon.jpg",
-        "hidden"          :     "False",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
         "date added"      :     "February 2, 2014",
         "tracking url"    :     "http://bit.ly/LsQOR8"
     },
     {
-        "title"           :     "FindUnmatched - Duplicate Entry",
-        "bundle"          :     "Plex-FindUnmatched.bundle",
-        "type"            :     ["Application"],
-        "description"     :     "Scan your medias, and report medias missing from the database.",
-        "repo"            :     "git@github.com:ukdtom/Plex-FindUnmatched.bundle.git",
+        "title"           :     "YouJizz",
+        "bundle"          :     "YouJizz.bundle",
+        "type"            :     ["Video", "Adult"],
+        "description"     :     "Watch XXX-Videos from YouJizz.com",
+        "repo"            :     "git@github.com:flownex/YouJizz.bundle.git",
         "branch"          :     "master",
-        "identifier"      :     "com.plexapp.plugins.findUnmatch",
-        "icon"            :     "icon-FindUnmatched.png",
-        "hidden"          :     "True",
-        "reason_hidden"   :     "duplicate entry... should not have been pushed in the first place :-/",
-        "date added"      :     "December 9, 2013",
-        "tracking url"    :     ""
-    },        
-# /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+        "identifier"      :     "com.plexapp.plugins.youjizz",
+        "icon"            :     "youjizz-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "April 19, 2011",
+        "tracking url"    :     "http://bit.ly/R5uN9R"
+    },
     {
-        "title"           :     "TivoToGo",
-        "bundle"          :     "TiVoToGo.bundle",
-        "type"            :     ["Video"],
-        "description"     :     " ",
-        "repo"            :     "git@github.com:tivoguy/TiVoToGo.bundle.git",
+        "title"           :     "YouPorn",
+        "bundle"          :     "YouPorn.bundle",
+        "type"            :     ["Video", "Adult"],
+        "description"     :     "Watch XXX-Videos from YouPorn.com",
+        "repo"            :     "git@github.com:Gerk/YouPorn.bundle.git",
         "branch"          :     "master",
-        "identifier"      :     "com.plexapp.plugins.TiVoToGo",
-        "icon"            :     "new-icon.png",
-        "hidden"          :     "True",
-        "date added"      :     "November 22, 2014",
-        "tracking url"    :     "https://github.com/tivoguy/TiVoToGo.bundle/archive/master.zip"
-    }]
-
-
-# /* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-
-# https://github.com/search?o=desc&q=plex+bundle&s=updated&type=Repositories&utf8=%E2%9C%93
-
-  #  {
-    $    "title"           :     "★",
-     #   "bundle"          :     "★.bundle",
-       # "type"            :     ["Video"],
-        #"description"     :     "★",
-      #  "repo"            :     "git@github.com:★/.bundle★.git",
-     #   "branch"          :     "master",
-    #    "identifier"      :     "com.plexapp.plugins.★",
-   #     "icon"            :     "new-icon.png",
-  #      "hidden"          :     "False",
- #       "date added"      :     "November 22, 2014",
- #       "tracking url"    :     "https://github.com/★/★.bundle/archive/master.zip "
-    #}]
+        "identifier"      :     "com.plexapp.plugins.youporn",
+        "icon"            :     "youporn-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "March 22, 2012",
+        "tracking url"    :     "http://bit.ly/Xbs97u"
+    },
+    {
+        "title"           :     "YouTubeTV",
+        "bundle"          :     "YouTubeTV.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Videos from YouTube.com",
+        "repo"            :     "git@github.com:kolsys/YouTubeTV.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.youtubetv",
+        "icon"            :     "youtubetv-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "July 22, 2015",
+        "tracking url"    :     "http://bit.ly/1OyG92S"
+    },
+    {
+        "title"           :     "Zumvo",
+        "bundle"          :     "Zumvo.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Movies from Zumvo.com",
+        "repo"            :     "git@github.com:jwsolve/Zumvo.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.zumvo",
+        "icon"            :     "zumvo-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "June 17, 2015",
+        "tracking url"    :     "http://bit.ly/1GghGJo"
+    }
+]
