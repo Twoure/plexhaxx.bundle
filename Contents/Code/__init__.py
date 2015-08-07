@@ -19,44 +19,44 @@ DEV_MODE    = True
 def Start():
 
     HTTP.CacheTime = 0
-    
+
     DirectoryObject.thumb = R(ICON)
     ObjectContainer.art = R(ART)
-    
+
     #Check the list of installed plugins
     if Dict['Installed'] == None:
         Dict['Installed'] = {'plexhaxx' : {'lastUpdate': 'None', 'updateAvailable': 'False', 'installed': 'True'}}
     else:
         if not Dict['Installed']['plexhaxx']['installed']:
             Dict['Installed']['plexhaxx']['installed'] = True
-    
+
     try: version = Dict['Installed']['plexhaxx']['version']
     except: version = 'unknown'
     Logger('plexhaxx version: %s' % version, force=True)
     Logger('Platform: %s %s' % (Platform.OS, Platform.OSVersion), force=True)
-    Logger('Server: PMS %s' % Platform.ServerVersion, force=True) 
-    
+    Logger('Server: PMS %s' % Platform.ServerVersion, force=True)
+
     Logger(Dict['Installed'])
-        
+
     Logger('Plex support files are at ' + Core.app_support_path)
     Logger('Plug-in bundles are located in ' + Core.storage.join_path(Core.app_support_path, Core.config.bundles_dir_name))
     Logger('Plug-in support files are located in ' + Core.storage.join_path(Core.app_support_path, Core.config.plugin_support_dir_name))
-    
+
     updater_running = False
-    
+
     if Prefs['auto-update']:
         if not updater_running:
             updater_running = True
             Thread.Create(BackgroundUpdater)
- 
+
 @handler(PREFIX, NAME, "icon-default.png", "art-default.jpg")
 def MainMenu():
-    
+
     #Load the list of available plugins
     Dict['plugins'] = LoadData()
-    
+
     oc = ObjectContainer(no_cache=True)
-    
+
     oc.add(DirectoryObject(key=Callback(CheckForUpdates, return_message=True), title="Check for updates"))
     oc.add(DirectoryObject(key=Callback(GenreMenu, genre='New'), title='New'))
     oc.add(DirectoryObject(key=Callback(GenreMenu, genre='All'), title='All'))
@@ -101,7 +101,7 @@ def GenreMenu(genre):
         Logger(date_sorted)
         date_sorted.reverse()
         plugins = date_sorted
-    
+
     for plugin in plugins:
         if plugin['hidden'] == "True": continue ### Don't display plugins which are "hidden"
         else: pass
@@ -156,7 +156,7 @@ def PluginMenu(plugin):
     else:
         oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Install"))
     return oc
-  
+
 @route(PREFIX + '/load')
 def LoadData():
     userdata = Resource.Load(PLUGINS)
@@ -178,7 +178,7 @@ def Installed(plugin):
             Dict['Installed'][plugin['title']] = {"installed":"False", "lastUpdate":"None", "updateAvailable":"True"}
             Dict.Save()
         return False
-    
+
     return False
 
 @route(PREFIX + '/installplugin', plugin=dict)
@@ -194,7 +194,7 @@ def InstallPlugin(plugin):
             return ObjectContainer(header=NAME, message="Install of %s failed with %d errors." % (plugin['title'], errors))
         else:
             return ObjectContainer(header=NAME, message="Update of %s failed with %d errors." % (plugin['title'], errors))
-    
+
 @route(PREFIX + '/joinpath', plugin=dict)
 def JoinBundlePath(plugin, path):
     bundle_path = GetBundlePath(plugin)
@@ -222,10 +222,10 @@ def Install(plugin, version=None, initial_download=False):
 
     bundle_path = GetBundlePath(plugin)
     Logger('Extracting to ' + bundle_path)
-    
+
     errors = 0
     init_path = None
-    
+
     for filename in zipfile:
         data = zipfile[filename]
 
@@ -255,7 +255,7 @@ def Install(plugin, version=None, initial_download=False):
 
                 Logger('Extracting folder ' + path)
                 Core.storage.ensure_dirs(path)
-                
+
     # Replace the UAS __init__.py last to avoid crippling the plugin on some systems
     if init_path:
         # extract the file under a different name then replace the existing file to avoid wiping the file and breaking the UAS on linux systems
@@ -271,7 +271,7 @@ def Install(plugin, version=None, initial_download=False):
             Logger("Unexpected Error", True)
             Logger(e, True)
             errors += 1
-    
+
     if errors == 0:
         # mark the plugin as updated
         MarkUpdated(plugin['title'], version=version)
@@ -280,7 +280,7 @@ def Install(plugin, version=None, initial_download=False):
     else:
         if initial_download:
             Logger("Install of %s failed with %d errors." % (plugin['title'], errors), force=True)
-            # avoid a nasty updater loop and don't restart the 
+            # avoid a nasty updater loop and don't restart the
             return errors
         else:
             Logger("Update of %s failed with %d errors." % (plugin['title'], errors), force=True)
@@ -443,7 +443,7 @@ def GetRSSFeed(plugin, install=False):
             # compared stored version to latest commitHash
             if version != commitHash: #if they don't match better update for good measure
                 Dict['Installed'][plugin['title']]['updateAvailable'] = "True"
-        
+
 
     if Dict['Installed'][plugin['title']]['updateAvailable'] == "True":
         Logger(plugin['title'] + ': Update available', force=True)
@@ -454,9 +454,9 @@ def GetRSSFeed(plugin, install=False):
                 Install(plugin, version=commitHash)
     else:
         Logger(plugin['title'] + ': Up-to-date :: Version %s' % commitHash, force=True)
-    
+
     Dict.Save()
-    
+
     return
 
 @route(PREFIX + '/repo', plugin=dict)
@@ -468,10 +468,10 @@ def GetRepo(plugin):
         pass
     else:
         Logger("Error in repo URL format. Please report this https://github.com/plexhaxx/plexhaxx.bundle -xx-mikedm139/plexhaxx.bundle/issues-", force=True)
-    
+
     if repo.endswith(".git"):
         repo = repo.split(".git")[0]
-        
+
     return repo
 
 
@@ -497,12 +497,12 @@ def BackgroundUpdater():
             sleep_time = sleep_time - 3600
             time.sleep(3600)
     return
-    
+
 @route(PREFIX + '/plugindir')
 def GetPluginDirPath():
     return Core.storage.join_path(Core.app_support_path, Core.config.bundles_dir_name)
 
-@route(PREFIX + '/bundlepath', plugin=dict)    
+@route(PREFIX + '/bundlepath', plugin=dict)
 def GetBundlePath(plugin):
     return Core.storage.join_path(GetPluginDirPath(), plugin['bundle'])
 
@@ -536,4 +536,4 @@ def MarkUpdated(title, version=None):
         Logger('%s "version" set to: %s' % (title, Dict['Installed'][title]['version']))
     Dict.Save()
     return
-    
+
