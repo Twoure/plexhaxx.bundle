@@ -39,6 +39,20 @@
         "tracking url"    :     "http://bit.ly/1Lisn2x"
     },
     {
+        "title"           :     "Amazon Prime Instant Video",
+        "bundle"          :     "AmazonInstantVideo.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Amazon Prime Instant Videos",
+        "repo"            :     "git@github.com:sander1/AmazonInstantVideo.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.amazoninstantvideo",
+        "icon"            :     "amazoninstantvideo-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
+        "date added"      :     "August 08, 2015",
+        "tracking url"    :     "http://bit.ly/1J2gJMv"
+    },
+    {
         "title"           :     "AMC",
         "bundle"          :     "AMC.bundle",
         "type"            :     ["Video"],
@@ -48,7 +62,7 @@
         "identifier"      :     "com.plexapp.plugins.amc",
         "icon"            :     "amc-icon.png",
         "hidden"          :     "True",
-        "reason_hidden"   :     "Empty Reop",
+        "reason_hidden"   :     "Empty Repo",
         "date added"      :     "June 17, 2015",
         "tracking url"    :     "http://bit.ly/1N3JGp7"
     },
@@ -792,14 +806,14 @@
         "bundle"          :     "Hulu.bundle",
         "type"            :     ["Video"],
         "description"     :     "Watch videos on Hulu.com",
-        "repo"            :     "git@github.com:pierre1313/hulu.bundle.git",
+        "repo"            :     "git@github.com:sander1/hulu.bundle.git",
         "identifier"      :     "com.plexapp.plugins.hulu",
         "branch"          :     "master",
         "icon"            :     "hulu-icon.png",
         "hidden"          :     "True",
         "reason_hidden"   :     "Outdated",
         "date added"      :     "June 17, 2015",
-        "tracking url"    :     "http://bit.ly/1d24BMs"
+        "tracking url"    :     "http://bit.ly/1IOzYme"
     },
     {
         "title"           :     "Hummingbird Metadata Agent",
@@ -894,6 +908,19 @@
         "tracking url"    :     "http://bit.ly/1azBESj"
     },
     {
+        "title"           :     "Jupiter Broadcasting",
+        "bundle"          :     "JupiterBroadcasting.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch old and live Shows from JupiterBroadcasting.com",
+        "repo"            :     "git@github.com:plexinc-plugins/JupiterBroadcasting.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.jupiterbroadcasting",
+        "icon"            :     "jupiterbroadcasting-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 08, 2015",
+        "tracking url"    :     "http://bit.ly/1UuKo2H"
+    },
+    {
         "title"           :     "Kink.com Metadata Agent",
         "bundle"          :     "Kink.bundle",
         "type"            :     ["Metadata Agent", "Adult"],
@@ -905,6 +932,33 @@
         "hidden"          :     "False",
         "date added"      :     "January 1, 2012",
         "tracking url"    :     "http://bit.ly/VLFtdu"
+    },
+    {
+        "title"           :     "KissAnime",
+        "bundle"          :     "KissAnime.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Videos from KissAnime.com",
+        "repo"            :     "git@github.com:TehCrucible/KissAnime.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.kissanime",
+        "icon"            :     "kissanime-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
+        "date added"      :     "August 08, 2015",
+        "tracking url"    :     "http://bit.ly/1K92no2"
+    },
+    {
+        "title"           :     "LegendasTV Subtitles",
+        "bundle"          :     "LegendasTV.bundle",
+        "type"            :     ["Metadata Agent", "Subtitles"],
+        "description"     :     "Subtitle Agent for Legendas.tv. Requirers python-unrar & python-requests.",
+        "repo"            :     "git@github.com:BrutuZ/LegendasTV.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.agents.legendastv",
+        "icon"            :     "metadata-agent-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "January 1, 2012",
+        "tracking url"    :     "http://bit.ly/1wAm54F"
     },
     {
         "title"           :     "Let Me Watch This",
@@ -1036,6 +1090,19 @@
         "hidden"          :     "False",
         "date added"      :     "November 26, 2013",
         "tracking url"    :     "http://bit.ly/196neq5"
+    },
+    {
+        "title"           :     "Metacritic",
+        "bundle"          :     "Metacritic.bundle",
+        "type"            :     ["Metadata Agent"],
+        "description"     :     "Agant that uses data from Metacritic.com",
+        "repo"            :     "git@github.com:sander1/Metacritic.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.agents.metacritic",
+        "icon"            :     "metacritic-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 07, 2015",
+        "tracking url"    :     "http://bit.ly/1DwLbfq"
     },
     {
         "title"           :     "Motherless",
@@ -1345,13 +1412,15 @@
         "bundle"          :     "rawrANIME.bundle",
         "type"            :     ["Video"],
         "description"     :     "Watch HD subbed and dubbed anime from rawrANIME.tv",
-        "repo"            :     "git@github.com:TehCrucible/rawrANIME.bundle.git",
+        "repo"            :     "git@github.com:JonnyWong16/rawrANIME.bundle.git",
+        "repo_old"        :     "git@github.com:TehCrucible/rawrANIME.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.rawranime",
         "icon"            :     "rawranime-icon.png",
         "hidden"          :     "False",
         "date added"      :     "March 21, 2014",
-        "tracking url"    :     "http://bit.ly/1jbDmkK"
+        "tracking url"    :     "http://bit.ly/1T1SVwP",
+        "trackingurlold"  :     "http://bit.ly/1jbDmkK"
     },
     {
         "title"           :     "Rdio",
@@ -1484,7 +1553,7 @@
         "hidden"          :     "True",
         "reason_hidden"   :     "'official' version available elsewhere",
         "date added"      :     "February 3, 2014",
-        "tracking url"    :     ""
+        "tracking url"    :     "http://bit.ly/1HwBAA4"
     },
     {
         "title"           :     "Soma FM",
@@ -1593,7 +1662,7 @@
         "old_track url"   :     "http://bit.ly/UksVwo"
     },
     {
-        "title"           :     "Subliminal - Subtitles",
+        "title"           :     "Subliminal Subtitles",
         "bundle"          :     "Subliminal.bundle",
         "type"            :     ["Metadata Agent", "Subtitles"],
         "description"     :     "Plex Metadata agent plugin based on Subliminal. Agent will search on following sites OpenSubtitles, TheSubDB, Podnapisi.NET, Addic7ed, and TVsubtitles.net",
@@ -1643,6 +1712,19 @@
         "hidden"          :     "False",
         "date added"      :     "February 20, 2014",
         "tracking url"    :     "http://bit.ly/1dgzyX3"
+    },
+    {
+        "title"           :     "Syfy",
+        "bundle"          :     "Syfy.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Vidoes from Syfy.com",
+        "repo"            :     "git@github.com:plexinc-plugins/Syfy.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.syfy",
+        "icon"            :     "syfy-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 08, 2015",
+        "tracking url"    :     "http://bit.ly/1MbwboE"
     },
     {
         "title"           :     "TheMovieClips plugin",
@@ -1710,6 +1792,20 @@
         "tracking url"    :     "http://bit.ly/1N2B95T"
     },
     {
+        "title"           :     "TV Ontario",
+        "bundle"          :     "TVO.bundle",
+        "type"            :     ["Video"],
+        "description"     :     "Watch Videos from TV Ontario site (tvo.org).",
+        "repo"            :     "git@github.com:lexy0/TVO.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.tvo",
+        "icon"            :     "tvo-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated, Only TVO Parents channel works",
+        "date added"      :     "August 08, 2015",
+        "tracking url"    :     "http://bit.ly/1HwLOAx"
+    },
+    {
         "title"           :     "Unofficial IMDb API",
         "bundle"          :     "Unofficial-IMDb-API.bundle",
         "type"            :     ["Metadata Agent"],
@@ -1746,7 +1842,8 @@
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.unsupportedappstore",
         "icon"            :     "unsupportedappstore-icon.png",
-        "hidden"          :     "False",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Removed from github",
         "date added"      :     "April 9, 2011",
         "tracking url"    :     ""
     },
@@ -1980,11 +2077,24 @@
         "repo"            :     "git@github.com:piplongrun/Yify.bundle.git",
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.yify",
-        "icon"            :     "yify-icon.jpg",
+        "icon"            :     "yify-icon.png",
         "hidden"          :     "True",
         "reason_hidden"   :     "Outdated",
         "date added"      :     "February 2, 2014",
         "tracking url"    :     "http://bit.ly/LsQOR8"
+    },
+    {
+        "title"           :     "Yify Subtitles",
+        "bundle"          :     "YifySubtitles.bundle",
+        "type"            :     ["Metadata Agent", "Subtitles"],
+        "description"     :     "Watch full movies from Yify TV",
+        "repo"            :     "git@github.com:sander1/YifySubtitles.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.agents.yify",
+        "icon"            :     "metadata-agent-icon.png",
+        "hidden"          :     "False",
+        "date added"      :     "August 07, 2015",
+        "tracking url"    :     "http://bit.ly/1IOluTr"
     },
     {
         "title"           :     "YouJizz",
