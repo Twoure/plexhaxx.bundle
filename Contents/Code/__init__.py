@@ -103,8 +103,12 @@ def GenreMenu(genre):
         plugins = date_sorted
 
     for plugin in plugins:
-        if plugin['hidden'] == "True": continue ### Don't display plugins which are "hidden"
-        else: pass
+        if Prefs['show_all']:
+            pass ### Show all Plugins
+        elif plugin['hidden'] == "True":
+            continue ### Don't display plugins which are "hidden"
+        else:
+            pass
         if plugin['title'] != "plexhaxx":
             if not Prefs['adult']:
                 if "Adult" in plugin['type']:
@@ -403,7 +407,7 @@ def genCode(length=20):
 def CheckForUpdates(install=False, return_message=False, plugin=None):
     #use the github commit feed for each installed plugin to check for available updates
     if plugin:
-        if plugin['hidden'] == "true":
+        if plugin['hidden'] == "True":
             return ObjectContainer(header="plexhaxx", message="%s : No longer supported. No updates." % plugin['title'])
         GetRSSFeed(plugin=plugin, install=install)
         if return_message:

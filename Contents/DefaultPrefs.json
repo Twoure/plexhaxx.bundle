@@ -1,5 +1,11 @@
  [
     {
+        "id": "show_all",
+        "type": "bool",
+        "label": "Allow All Plugins",
+        "default": "False"
+    },
+    {
         "id": "adult",
         "type": "bool",
         "label": "Allow Adult Plugins",
