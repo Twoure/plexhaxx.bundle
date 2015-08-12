@@ -2065,7 +2065,8 @@
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.xnxx",
         "icon"            :     "xnxx-icon.png",
-        "hidden"          :     "False",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Outdated",
         "date added"      :     "April 23, 2011",
         "tracking url"    :     "http://bit.ly/YF0CcD"
     },
@@ -2118,7 +2119,8 @@
         "branch"          :     "master",
         "identifier"      :     "com.plexapp.plugins.youporn",
         "icon"            :     "youporn-icon.png",
-        "hidden"          :     "False",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "Empty repo",
         "date added"      :     "March 22, 2012",
         "tracking url"    :     "http://bit.ly/Xbs97u"
     },
