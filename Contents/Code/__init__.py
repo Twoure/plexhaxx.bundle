@@ -1,20 +1,24 @@
-import os, time, random
+import os
+import time
+import random
 
-####################################################################################################
+###############################################################################
 
 PREFIX = "/video/plexhaxx"
 
 NAME = 'plexhaxx'
 
-ART         = 'art-default.jpg'
+ART         = 'art-default.png'
 ICON        = 'icon-default.png'
 PREFS_ICON  = 'icon-prefs.png'
 
 PLUGINS     = 'plugin_details.json'
 
+SEARCH      = 'https://api.github.com/search/repositories?q=%s+plex+bundle&sort=updated&order=desc'
+
 DEV_MODE    = True
 
-####################################################################################################
+################################################################################
 
 def Start():
 
@@ -25,13 +29,15 @@ def Start():
 
     #Check the list of installed plugins
     if Dict['Installed'] == None:
-        Dict['Installed'] = {'plexhaxx' : {'lastUpdate': 'None', 'updateAvailable': 'False', 'installed': 'True'}}
+        Dict['Installed'] = {'plexhaxx': {'lastUpdate': 'None', 'updateAvailable': 'False', 'installed': 'True'}}
     else:
         if not Dict['Installed']['plexhaxx']['installed']:
             Dict['Installed']['plexhaxx']['installed'] = True
 
-    try: version = Dict['Installed']['plexhaxx']['version']
-    except: version = 'unknown'
+    try:
+        version = Dict['Installed']['plexhaxx']['version']
+    except:
+        version = 'unknown'
     Logger('plexhaxx version: %s' % version, force=True)
     Logger('Platform: %s %s' % (Platform.OS, Platform.OSVersion), force=True)
     Logger('Server: PMS %s' % Platform.ServerVersion, force=True)
@@ -48,6 +54,8 @@ def Start():
         if not updater_running:
             updater_running = True
             Thread.Create(BackgroundUpdater)
+
+################################################################################
 
 @handler(PREFIX, NAME, "icon-default.png", "art-default.jpg")
 def MainMenu():
@@ -71,21 +79,26 @@ def MainMenu():
     oc.add(DirectoryObject(key=Callback(UpdateAll), title='Download updates',
         summary="Update all installed plugins.\nThis may take a while."))
     oc.add(PrefsObject(title="Preferences", thumb=R(PREFS_ICON)))
+    oc.add(InputDirectoryObject(key=Callback(Search), title='Search', prompt='Search', thumb=R('search.png')))
 
     return oc
+
+################################################################################
 
 @route(PREFIX + '/ValidatePrefs')
 def ValidatePrefs():
     # If Prefs['clear_dict'] is True clear the Dict file and reset the Pref
     if Prefs['clear_dict']:
         Logger("Resetting Dict[]")
-        Dict.Reset() # This doesn't seem to work, but new values are set below anyways.
+        Dict.Reset()  # This doesn't seem to work, but new values are set below anyways.
         Dict.Save()
         # Note: Setting lastUpdate to None causes an update to run. Which is probably a good thing if the Dict[] needs to be reset.
-        Dict['Installed'] = {'plexhaxx' : {'lastUpdate': 'None', 'updateAvailable': 'False', 'installed': 'True'}}
+        Dict['Installed'] = {'plexhaxx': {'lastUpdate': 'None', 'updateAvailable': 'False', 'installed': 'True'}}
         Dict['plugins'] = LoadData()
         # Reset Prefs['clear_dict'] to false.
         HTTP.Request('http://localhost:32400/:/plugins/com.plexapp.plugins.plexhaxx/prefs/set?clear_dict=False', immediate=True)
+
+################################################################################
 
 @route(PREFIX + '/genre')
 def GenreMenu(genre):
@@ -104,9 +117,9 @@ def GenreMenu(genre):
 
     for plugin in plugins:
         if Prefs['show_all']:
-            pass ### Show all Plugins
+            pass  # Show all Plugins
         elif plugin['hidden'] == "True":
-            continue ### Don't display plugins which are "hidden"
+            continue  # Don't display plugins which are "hidden"
         else:
             pass
         if plugin['title'] != "plexhaxx":
@@ -131,6 +144,67 @@ def GenreMenu(genre):
         return ObjectContainer(header=NAME, message='There are no plugins to display in the list: "%s"' % genre)
     return oc
 
+################################################################################
+
+@route(PREFIX + '/search')
+def Search(query=''):
+
+    oc = ObjectContainer()
+    local_url = SEARCH % String.Quote(query, usePlus=True)
+    data = JSON.ObjectFromURL(local_url)
+
+    for repo in data['items']:
+        title = repo['name']
+        ls_title = title.lower().split('.')[0]
+        url = repo['html_url']
+        full_name = repo['full_name']
+        default_branch = repo['default_branch']
+#
+#        SEARCH_ICON = 'https://api.github.com/search/code?q=icon+default+in:path+repo:%s'
+#        icon_url_search = SEARCH_ICON % String.Quote("shopgirl284/TVLand.bundle")
+#        icon_data = JSON.ObjectFromURL(icon_url_search)
+#        icon_name = icon_data['total_count']
+#        else icon_name = ""
+#            for icons in icon_data['items']:
+#                sname = srt(icons['name'])
+#                if 'icon' in sname and 'default' in sname:
+#                    icon_name = icon_data['name']
+#                elif 'icon' in sname and 'ls_title' in sname:
+#                    icon_name = icon['name']
+#
+#        icon_url = "https://raw.githubusercontent.com/%s/%s/Contents/Resources/" % (repo['full_name'], repo['default_branch'])
+
+        try:
+            date = ",\n\nDate Last Modified: %s," % Datetime.ParseDate(repo['pushed_at'])
+        except:
+            date = ""
+
+        try:
+            score = "\n\nStars: %i" % repo['stargazers_count']
+        except:
+            score = ""
+
+        try:
+            summary = score + date + "\n\nDescription: %s" % String.StripTags(repo['description'].replace("<br />", "\n"))
+            summary = summary.strip()
+        except:
+            summary = None
+
+        try:
+            thumb_url = "https://raw.githubusercontent.com/%s/%s/Contents/Resources/icon-default.png" % (full_name, default_branch)
+        except:
+            thumb_url = ""
+
+        oc.add(PopupDirectoryObject(key=Callback(PluginSearch), title=title, summary=summary, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=ICON)))
+
+    if len(oc) < 1:
+        Log('still no value for objects')
+        return ObjectContainer(header="Empty", message="There are no Channels to list right now.")
+    else:
+        return oc
+
+################################################################################
+
 @route(PREFIX + '/installed')
 def InstalledMenu():
     oc = ObjectContainer(title2="Installed", no_cache=True)
@@ -143,10 +217,13 @@ def InstalledMenu():
                 summary = 'No longer available through the plexhaxx'
             elif Dict['Installed'][plugin['title']]['updateAvailable'] == "True":
                 summary = 'Update available'
-            else: pass
-            oc.add(PopupDirectoryObject(key=Callback(PluginMenu, plugin=plugin), title=plugin['title'],summary=summary,
+            else:
+                pass
+            oc.add(PopupDirectoryObject(key=Callback(PluginMenu, plugin=plugin), title=plugin['title'], summary=summary,
                 thumb=R(plugin['icon'])))
     return oc
+
+################################################################################
 
 @route(PREFIX + '/popup', plugin=dict)
 def PluginMenu(plugin):
@@ -161,10 +238,21 @@ def PluginMenu(plugin):
         oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Install"))
     return oc
 
+################################################################################
+
+@route(PREFIX + '/search-popup')
+def PluginSearch():
+    oc = ObjectContainer(title2=title, no_cache=True)
+    return oc
+
+################################################################################
+
 @route(PREFIX + '/load')
 def LoadData():
     userdata = Resource.Load(PLUGINS)
     return JSON.ObjectFromString(userdata)
+
+################################################################################
 
 @route(PREFIX + '/installedcheck', plugin=dict)
 def Installed(plugin):
@@ -176,14 +264,16 @@ def Installed(plugin):
     except:
         ### make sure the Appstore shows up in the list if it doesn't already ###
         if plugin['title'] == 'plexhaxx':
-            Dict['Installed'][plugin['title']] = {"installed":"True", "lastUpdate":"None", "updateAvailable":"False"}
+            Dict['Installed'][plugin['title']] = {"installed": "True", "lastUpdate": "None", "updateAvailable": "False"}
             Dict.Save()
         else:
-            Dict['Installed'][plugin['title']] = {"installed":"False", "lastUpdate":"None", "updateAvailable":"True"}
+            Dict['Installed'][plugin['title']] = {"installed": "False", "lastUpdate": "None", "updateAvailable": "True"}
             Dict.Save()
         return False
 
     return False
+
+################################################################################
 
 @route(PREFIX + '/installplugin', plugin=dict)
 def InstallPlugin(plugin):
@@ -199,6 +289,8 @@ def InstallPlugin(plugin):
         else:
             return ObjectContainer(header=NAME, message="Update of %s failed with %d errors." % (plugin['title'], errors))
 
+################################################################################
+
 @route(PREFIX + '/joinpath', plugin=dict)
 def JoinBundlePath(plugin, path):
     bundle_path = GetBundlePath(plugin)
@@ -209,6 +301,8 @@ def JoinBundlePath(plugin, path):
         fragments = fragments[1:]
 
     return Core.storage.join_path(bundle_path, *fragments)
+
+################################################################################
 
 @route(PREFIX + '/install', plugin=dict, initial_download=bool)
 def Install(plugin, version=None, initial_download=False):
@@ -235,7 +329,7 @@ def Install(plugin, version=None, initial_download=False):
 
         if not str(filename).endswith('/'):
             if not str(filename.split('/')[-1]).startswith('.'):
-#LINUX
+                # LINUX
                 if plugin['title'] == 'plexhaxx' and filename == '__init__.py' and Platform.OS == "Linux":
                     # set the __init__.py file aside and update it after all the others are done
                     init_path = filename
@@ -304,6 +398,8 @@ def Install(plugin, version=None, initial_download=False):
             HTTP.Request('http://127.0.0.1:32400/:/plugins/com.plexapp.system/restart', immediate=True)
     return errors
 
+################################################################################
+
 @route(PREFIX + '/updateall')
 def UpdateAll():
     errors_total = 0
@@ -328,6 +424,8 @@ def UpdateAll():
     else:
         return ObjectContainer(header=NAME, message='Updates have been applied but there were errors. Check logs for details.')
 
+################################################################################
+
 @route(PREFIX + '/uninstall', plugin=dict)
 def UnInstallPlugin(plugin):
     Logger('Uninstalling %s' % GetBundlePath(plugin), force=True)
@@ -340,18 +438,24 @@ def UnInstallPlugin(plugin):
         Logger("Failed to remove all the bundle's files but we'll mark it uninstalled anyway.")
     if Prefs['delete_data']:
         try:
-            try: DeleteFile(GetSupportPath('Preferences', plugin), code)
-            except: Logger("Failed to remove Preferences.")
-            try: DeleteFolder(GetSupportPath('Data', plugin), code)
-            except: Logger("Failed to remove Data.")
-            try: DeleteFolder(GetSupportPath('Caches', plugin), code)
-            except: Logger("Failed to remove Caches.")
+            try:
+                DeleteFile(GetSupportPath('Preferences', plugin), code)
+            except:
+                Logger("Failed to remove Preferences.")
+            try:
+                DeleteFolder(GetSupportPath('Data', plugin), code)
+            except:
+                Logger("Failed to remove Data.")
+            try:
+                DeleteFolder(GetSupportPath('Caches', plugin), code)
+            except:
+                Logger("Failed to remove Caches.")
         except:
             Logger("Failed to remove support files. Attempting to uninstall plugin anyway.")
 
     Dict['Installed'][plugin['title']]['installed'] = "False"
     Dict['Installed'][plugin['title']]['version'] = None
-    Dict['deleteCode'] = '' # Clear the key
+    Dict['deleteCode'] = ''  # Clear the key
     Dict.Save()
     try:
         Logger("Attempting to restart the system bundle to force changes to register.", force=True)
@@ -360,18 +464,26 @@ def UnInstallPlugin(plugin):
         pass
     return ObjectContainer(header=NAME, message='%s uninstalled.' % plugin['title'])
 
+################################################################################
+
 @route(PREFIX + '/deletefile')
 def DeleteFile(filePath, code):
     # Verify we were given a good key
-    if code != Dict['deleteCode']: Logger("DeleteFile received incorrect code"); return
+    if code != Dict['deleteCode']:
+        Logger("DeleteFile received incorrect code")
+        return
     Logger('Removing ' + filePath)
     os.remove(filePath)
     return
 
+################################################################################
+
 @route(PREFIX + '/deletefolder')
 def DeleteFolder(folderPath, code):
     # Verify we were given a good key
-    if code != Dict['deleteCode']: Logger("DeleteFolder received incorrect code"); return
+    if code != Dict['deleteCode']:
+        Logger("DeleteFolder received incorrect code")
+        return
     Logger('Attempting to delete %s' % folderPath)
     if os.path.exists(folderPath):
         for file in os.listdir(folderPath):
@@ -380,21 +492,29 @@ def DeleteFolder(folderPath, code):
             # try/execpt here to not stop the whole operation if the delete fails.
             if os.path.isfile(path):
                 Logger('Removing ' + path)
-                try: DeleteFile(path, code)
-                except: Logger('Failed to remove ' + path)
+                try:
+                    DeleteFile(path, code)
+                except:
+                    Logger('Failed to remove ' + path)
             elif os.path.isdir(path):
                 Logger('Removing ' + path)
-                try: DeleteFolder(path, code)
-                except: Logger('Failed to remove ' + path)
+                try:
+                    DeleteFolder(path, code)
+                except:
+                    Logger('Failed to remove ' + path)
             else:
                 Logger('Do not know what to do with ' + path)
         try:
             Logger('Removing ' + folderPath)
             os.rmdir(folderPath)
-        except: Logger('Failed to remove ' + folderPath); explode
+        except:
+            Logger('Failed to remove ' + folderPath)
+            explode
     else:
         Logger("%s does not exist so we don't need to remove it" % folderPath)
     return
+
+################################################################################
 
 @route(PREFIX + '/genCode')
 def genCode(length=20):
@@ -402,6 +522,8 @@ def genCode(length=20):
     chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     code = ''.join(random.choice(chars) for x in range(length))
     return code
+
+################################################################################
 
 @route(PREFIX + '/updatecheck', plugin=dict)
 def CheckForUpdates(install=False, return_message=False, plugin=None):
@@ -425,7 +547,10 @@ def CheckForUpdates(install=False, return_message=False, plugin=None):
             return ObjectContainer(header="plexhaxx", message="Update check complete.")
         else:
             return
+
+################################################################################
 # FEED-UPDATE-URL
+
 @route(PREFIX + '/GetFeed', plugin=dict)
 def GetRSSFeed(plugin, install=False):
     repo = GetRepo(plugin)
@@ -445,23 +570,24 @@ def GetRSSFeed(plugin, install=False):
         else:
             version = Dict['Installed'][plugin['title']]['version']
             # compared stored version to latest commitHash
-            if version != commitHash: #if they don't match better update for good measure
+            if version != commitHash:  # if they don't match better update for good measure
                 Dict['Installed'][plugin['title']]['updateAvailable'] = "True"
-
 
     if Dict['Installed'][plugin['title']]['updateAvailable'] == "True":
         Logger(plugin['title'] + ': Update available', force=True)
         if install:
-            if plugin['title'] == 'plexhaxx' and DEV_MODE:
-                pass
-            else:
-                Install(plugin, version=commitHash)
+                if plugin['title'] == 'plexhaxx' and DEV_MODE:
+                    pass
+                else:
+                    Install(plugin, version=commitHash)
     else:
         Logger(plugin['title'] + ': Up-to-date :: Version %s' % commitHash, force=True)
 
     Dict.Save()
 
     return
+
+################################################################################
 
 @route(PREFIX + '/repo', plugin=dict)
 def GetRepo(plugin):
@@ -478,6 +604,7 @@ def GetRepo(plugin):
 
     return repo
 
+################################################################################
 
 @route(PREFIX + '/updater')
 def BackgroundUpdater():
@@ -489,12 +616,12 @@ def BackgroundUpdater():
             if Installed(plugin):
                 GetRSSFeed(plugin=plugin, install=True)
         # check for updates every 24hours... give or take 30 minutes to avoid hammering GitHub
-        sleep_time = 24*60*60 + (random.randint(-30,30))*60
+        sleep_time = 24*60*60 + (random.randint(-30, 30))*60
         hours, minutes = divmod(sleep_time/60, 60)
         Logger("Updater will run again in %d hours and %d minutes" % (hours, minutes), force=True)
         while sleep_time > 0:
-            remainder = sleep_time%(3600)
-            if  remainder > 0:
+            remainder = sleep_time % (3600)
+            if remainder > 0:
                 time.sleep(remainder)
                 sleep_time = sleep_time - remainder
             Logger("Time until next auto-update = %d hours" % (int(sleep_time)/3600))
@@ -502,13 +629,19 @@ def BackgroundUpdater():
             time.sleep(3600)
     return
 
+################################################################################
+
 @route(PREFIX + '/plugindir')
 def GetPluginDirPath():
     return Core.storage.join_path(Core.app_support_path, Core.config.bundles_dir_name)
 
+################################################################################
+
 @route(PREFIX + '/bundlepath', plugin=dict)
 def GetBundlePath(plugin):
     return Core.storage.join_path(GetPluginDirPath(), plugin['bundle'])
+
+################################################################################
 
 @route(PREFIX + '/supportpath', plugin=dict)
 def GetSupportPath(directory, plugin):
@@ -516,6 +649,8 @@ def GetSupportPath(directory, plugin):
         return Core.storage.join_path(Core.app_support_path, Core.config.plugin_support_dir_name, directory, (plugin['identifier'] + '.xml'))
     else:
         return Core.storage.join_path(Core.app_support_path, Core.config.plugin_support_dir_name, directory, plugin['identifier'])
+
+################################################################################
 
 @route(PREFIX + '/logger')
 def Logger(message, force=False):
@@ -526,7 +661,9 @@ def Logger(message, force=False):
     else:
         pass
 
-'''allow plugins to mark themselves updated externally'''
+################################################################################
+
+''' allow plugins to mark themselves updated externally '''
 @route('%s/mark-updated/{title}' % PREFIX)
 def MarkUpdated(title, version=None):
     Dict['Installed'][title]['installed'] = "True"
@@ -540,4 +677,3 @@ def MarkUpdated(title, version=None):
         Logger('%s "version" set to: %s' % (title, Dict['Installed'][title]['version']))
     Dict.Save()
     return
-
