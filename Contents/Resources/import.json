@@ -190,5 +190,21 @@
         "type": [
             "Imported"
         ]
+    },
+    {
+        "branch": "master",
+        "bundle": "9GagTV.bundle",
+        "date added": "August 18, 2015",
+        "description": "9GAG is your best source of fun. 9GAGTV is the same with video!",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.9gagtv",
+        "reason_hidden": "",
+        "repo": "git@github.com:DinoSane/9GagTV.bundle.git",
+        "title": "9GagTV",
+        "tracking url": "https://github.com/DinoSane/9GagTV.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
     }
 ]
