@@ -4,7 +4,6 @@ import random
 import json
 import io
 import time
-import urllib
 
 ###############################################################################
 
@@ -90,7 +89,7 @@ def MainMenu():
         summary="Update all installed plugins.\nThis may take a while.", thumb=R('icon-update-red.png')))
     oc.add(PrefsObject(title="Preferences", thumb=R(PREFS_ICON)))
 
-    oc.add(InputDirectoryObject(key=Callback(Search), title='Search', prompt='Search', thumb=R('icon-search.png')))
+    oc.add(InputDirectoryObject(key=Callback(Search, page_count = 1), title='Search', prompt='Search', thumb=R('icon-search.png')))
 
     return oc
 
@@ -158,46 +157,27 @@ def GenreMenu(genre):
 ################################################################################
 
 @route(PREFIX + '/search')
-def Search(query=''):
+def Search(page_count, query=''):
 
-    oc = ObjectContainer(title2="Search", no_cache=True)
-    local_url = SEARCH + 'repositories?q=%s+bundle&sort=updated&order=desc' % String.Quote(query, usePlus=True)
+    oc = ObjectContainer(title2="Search")
+    local_url = SEARCH + 'repositories?page=%s&per_page=30&q=%s+bundle&sort=updated&order=desc' % (page_count, String.Quote(query, usePlus=True))
     data = JSON.ObjectFromURL(local_url)
 
-    e_j_load = data['items']
-
-    with io.open('search_dump.json', 'wb') as f2:
-        json.dump(e_j_load, f2, indent=4, sort_keys=True, separators=(',', ': '))
-
-    test_json = Resource.Load(SEARCH_DUMP)
-    t_json = JSON.ObjectFromString(test_json)
-    Log(t_json)
-    Log(len(t_json))
-
-    data_size = len(data['items'])
-    Log(data_size)
-    git_data = []
+    total_count = int(data['total_count'])
+    total_count_per_page = total_count - (30 * int(page_count))
+    Log(total_count)
+    Log(total_count_per_page)
 
     for git_results in data['items']:
         if ".bundle" in git_results['name']:
-            git_data.append(git_results)
-    for git_results in data['items']:
-        if ".bundle" in git_results['name']:
-
-            Log(git_results['name'] + ' is a plex channel')
 
             title = git_results['name']
             ls_title = title.lower().split('.')[0]
             url = git_results['html_url']
             full_name = git_results['full_name']
             default_branch = git_results['default_branch']
-
+##
             icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, 'icon-default.png')
-#
-#            f = urllib.urlopen(icon_name)
-#            if not f.code == 200:
-#                icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, 'icon-default.png')
-#            else:
 ##
 #            lookup_icon_url = url + '/tree/%s/Contents/Resources' % default_branch
 #
@@ -213,28 +193,6 @@ def Search(query=''):
 #                            icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, icon)
 #                            Log(icon_name)
 ##
-#                test = tag.xpath('./@class')
-#                test = tag.xpath('./a/@href')[0]
-#            test_url = 'http://www.vh1.com/shows/'
-#            tag = HTML.ElementFromURL(test_url).xpath('//section[@id="sec-popshows"]//div[contains(@class,"promo-block")]/a/@href')[0]
-#            stuff = HTML.StringFromElement(tag)
-#            title = tag.xpath('.//td[class="content"]/text()')[0]
-#                Log(tag)
-#                Log(test)
-#
-#            f = urllib.urlopen(icon_name)
-#            if not f.code == 200:
-#                icon_url_search = SEARCH + 'code?q=icon+in:path+repo:%s' % String.Quote(full_name)
-#                icon_data = JSON.ObjectFromURL(icon_url_search)
-#                for icons in icon_data['items']:
-#                    icon_names = icons['name']
-#                    if "icon" in icon_names and "default" in icon_names:
-#                        icon_name = 'https://raw.githubusercontent.com/%s/%s/%s' % (full_name, default_branch, icons['path'])
-#                        Log(icon_name)
-#                    elif "icon" in icon_names and ls_title in icon_names:
-#                        icon_name = 'https://raw.githubusercontent.com/%s/%s/%s' % (full_name, default_branch, icons['path'])
-#                        Log(icon_name)
-#
             try:
                 date = ",\n\nDate Last Modified: %s," % Datetime.ParseDate(git_results['pushed_at'])
             except:
@@ -263,13 +221,15 @@ def Search(query=''):
                     'icon': 'icon-default.png', 'hidden': 'False', 'reason_hidden': '',
                     'date added': time.strftime("%B %d, %Y"), 'tracking url': git_results['svn_url'] + '/archive/master.zip'}
 
-            oc.add(PopupDirectoryObject(key=Callback(PluginSearch, new_plugin=new_plugin_info), title=title, summary=summary, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=NO_ICON)))
-        git_data_size = len(git_data)
-    Log(git_data_size)
+            oc.add(DirectoryObject(key=Callback(PluginSearch, new_plugin=new_plugin_info), title=title, summary=summary, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=NO_ICON)))
+
     if len(oc) < 1:
         Log('still no value for objects')
         return ObjectContainer(header="Empty", message="There are no Channels to list right now.")
     else:
+        if total_count_per_page >= 30:
+            oc.add(NextPageObject(key = Callback(Search, page_count=int(page_count)+1, query=query),
+                title = "More...", thumb=R('icon-next.png')))
         return oc
 
 ################################################################################
