@@ -1,0 +1,194 @@
+[
+    {
+        "branch": "master",
+        "bundle": "Hitbox.tv.bundle",
+        "date added": "August 15, 2015",
+        "description": "A plugin for Plex Media Server to allow streaming of Hitbox.tv live streams.",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.hitbox",
+        "reason_hidden": "",
+        "repo": "git@github.com:r15ch13/Hitbox.tv.bundle.git",
+        "title": "Hitbox",
+        "tracking url": "https://github.com/r15ch13/Hitbox.tv.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "Radio-Canada-Live.bundle",
+        "date added": "August 15, 2015",
+        "description": "A Plex plugin that lets you watch Radio-Canada Live",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.radio-canada-live",
+        "reason_hidden": "",
+        "repo": "git@github.com:gcamp/Radio-Canada-Live.bundle.git",
+        "title": "Radio-Canada-Live",
+        "tracking url": "https://github.com/gcamp/Radio-Canada-Live.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "Pluzz.bundle",
+        "date added": "August 15, 2015",
+        "description": "Pluzz (French TV replay) Plex channel",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.pluzz",
+        "reason_hidden": "",
+        "repo": "git@github.com:lotooo/Pluzz.bundle.git",
+        "title": "Pluzz",
+        "tracking url": "https://github.com/lotooo/Pluzz.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "YouTubeTV.bundle",
+        "date added": "August 15, 2015",
+        "description": "Plex YouTube video plugin",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.youtubetv",
+        "reason_hidden": "",
+        "repo": "git@github.com:kolsys/YouTubeTV.bundle.git",
+        "title": "YouTubeTV",
+        "tracking url": "https://github.com/kolsys/YouTubeTV.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVKaista.bundle",
+        "date added": "August 15, 2015",
+        "description": "tvkaista plugin for plex media server (RIP)",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvkaista",
+        "reason_hidden": "",
+        "repo": "git@github.com:mteiste/TVKaista.bundle.git",
+        "title": "TVKaista",
+        "tracking url": "https://github.com/mteiste/TVKaista.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "CcloudTv.bundle",
+        "date added": "August 15, 2015",
+        "description": "Plex Media Server plug-in designed for CcloudTv",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.ccloudtv",
+        "reason_hidden": "",
+        "repo": "git@github.com:coder-alpha/CcloudTv.bundle.git",
+        "title": "CcloudTv",
+        "tracking url": "https://github.com/coder-alpha/CcloudTv.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 16, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 16, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 16, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "Cordkillers.bundle",
+        "date added": "August 16, 2015",
+        "description": "Plex plugin for the Cordkillers podcast",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.cordkillers",
+        "reason_hidden": "",
+        "repo": "git@github.com:maethorechannen/Cordkillers.bundle.git",
+        "title": "Cordkillers",
+        "tracking url": "https://github.com/maethorechannen/Cordkillers.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "Cordkillers.bundle",
+        "date added": "August 16, 2015",
+        "description": "Plex plugin for the Cordkillers podcast",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.cordkillers",
+        "reason_hidden": "",
+        "repo": "git@github.com:maethorechannen/Cordkillers.bundle.git",
+        "title": "Cordkillers",
+        "tracking url": "https://github.com/maethorechannen/Cordkillers.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "Food-Porn-Daily.bundle",
+        "date added": "August 16, 2015",
+        "description": null,
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.food-porn-daily",
+        "reason_hidden": "",
+        "repo": "git@github.com:eelcob/Food-Porn-Daily.bundle.git",
+        "title": "Food-Porn-Daily",
+        "tracking url": "https://github.com/eelcob/Food-Porn-Daily.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    }
+]

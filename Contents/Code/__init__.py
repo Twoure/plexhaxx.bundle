@@ -1,20 +1,28 @@
 import os
 import time
 import random
+import json
+import io
+import time
+import urllib
 
 ###############################################################################
 
-PREFIX = "/video/plexhaxx"
+PREFIX      = "/video/plexhaxx"
 
-NAME = 'plexhaxx'
+NAME        = 'plexhaxx'
 
 ART         = 'art-default.png'
 ICON        = 'icon-default.png'
 PREFS_ICON  = 'icon-prefs.png'
+NO_ICON     = 'icon-no-image.png'
 
 PLUGINS     = 'plugin_details.json'
+IMPORT_DIR  = os.path.join(os.getcwd(), '../../../Plug-ins/plexhaxx.bundle/Contents/Resources/import.json')
+SEARCH_DUMP = os.path.join(os.getcwd(), '../../../Plug-ins/plexhaxx.bundle/Contents/Resources/search_dump.json')
+#IMPORT_DIR  = 'import.json'
 
-SEARCH      = 'https://api.github.com/search/repositories?q=%s+plex+bundle&sort=updated&order=desc'
+SEARCH      = 'https://api.github.com/search/'
 
 DEV_MODE    = True
 
@@ -26,6 +34,7 @@ def Start():
 
     DirectoryObject.thumb = R(ICON)
     ObjectContainer.art = R(ART)
+    ObjectContainer.title1 = NAME
 
     #Check the list of installed plugins
     if Dict['Installed'] == None:
@@ -65,21 +74,23 @@ def MainMenu():
 
     oc = ObjectContainer(no_cache=True)
 
-    oc.add(DirectoryObject(key=Callback(CheckForUpdates, return_message=True), title="Check for updates"))
-    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='New'), title='New'))
-    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='All'), title='All'))
+    oc.add(DirectoryObject(key=Callback(CheckForUpdates, return_message=True), title="Check for updates", thumb=R('icon-refresh.png')))
+    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='New'), title='New', thumb=R('icon-new.png')))
+    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='All'), title='All', thumb=R('icon-listview.png')))
     if Prefs['adult']:
-        oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Adult'), title='Adult'))
-    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Application'), title='Application'))
-    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Video'), title='Video'))
-    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Pictures'), title='Pictures'))
-    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Metadata Agent'), title='Metadata Agent'))
-    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Music'), title='Music'))
-    oc.add(DirectoryObject(key=Callback(InstalledMenu), title='Installed'))
+        oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Adult'), title='Adult', thumb=R('icon-lock.png')))
+    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Application'), title='Application', thumb=R('icon-application.png')))
+    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Video'), title='Video', thumb=R('icon-video.png')))
+    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Pictures'), title='Pictures', thumb=R('icon-pictures.png')))
+    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Metadata Agent'), title='Metadata Agent', thumb=R('icon-metadata-agent.png')))
+    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Subtitles'), title='Subtitle Agent', thumb=R('icon-metadata-agent-subs.png')))
+    oc.add(DirectoryObject(key=Callback(GenreMenu, genre='Music'), title='Music', thumb=R('icon-music.png')))
+    oc.add(DirectoryObject(key=Callback(InstalledMenu), title='Installed', thumb=R('icon-installed.png')))
     oc.add(DirectoryObject(key=Callback(UpdateAll), title='Download updates',
-        summary="Update all installed plugins.\nThis may take a while."))
+        summary="Update all installed plugins.\nThis may take a while.", thumb=R('icon-update-red.png')))
     oc.add(PrefsObject(title="Preferences", thumb=R(PREFS_ICON)))
-    oc.add(InputDirectoryObject(key=Callback(Search), title='Search', prompt='Search', thumb=R('search.png')))
+
+    oc.add(InputDirectoryObject(key=Callback(Search), title='Search', prompt='Search', thumb=R('icon-search.png')))
 
     return oc
 
@@ -149,54 +160,112 @@ def GenreMenu(genre):
 @route(PREFIX + '/search')
 def Search(query=''):
 
-    oc = ObjectContainer()
-    local_url = SEARCH % String.Quote(query, usePlus=True)
+    oc = ObjectContainer(title2="Search", no_cache=True)
+    local_url = SEARCH + 'repositories?q=%s+bundle&sort=updated&order=desc' % String.Quote(query, usePlus=True)
     data = JSON.ObjectFromURL(local_url)
 
-    for repo in data['items']:
-        title = repo['name']
-        ls_title = title.lower().split('.')[0]
-        url = repo['html_url']
-        full_name = repo['full_name']
-        default_branch = repo['default_branch']
+    e_j_load = data['items']
+
+    with io.open('search_dump.json', 'wb') as f2:
+        json.dump(e_j_load, f2, indent=4, sort_keys=True, separators=(',', ': '))
+
+    test_json = Resource.Load(SEARCH_DUMP)
+    t_json = JSON.ObjectFromString(test_json)
+    Log(t_json)
+    Log(len(t_json))
+
+    data_size = len(data['items'])
+    Log(data_size)
+    git_data = []
+
+    for git_results in data['items']:
+        if ".bundle" in git_results['name']:
+            git_data.append(git_results)
+    for git_results in data['items']:
+        if ".bundle" in git_results['name']:
+
+            Log(git_results['name'] + ' is a plex channel')
+
+            title = git_results['name']
+            ls_title = title.lower().split('.')[0]
+            url = git_results['html_url']
+            full_name = git_results['full_name']
+            default_branch = git_results['default_branch']
+
+            icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, 'icon-default.png')
 #
-#        SEARCH_ICON = 'https://api.github.com/search/code?q=icon+default+in:path+repo:%s'
-#        icon_url_search = SEARCH_ICON % String.Quote("shopgirl284/TVLand.bundle")
-#        icon_data = JSON.ObjectFromURL(icon_url_search)
-#        icon_name = icon_data['total_count']
-#        else icon_name = ""
-#            for icons in icon_data['items']:
-#                sname = srt(icons['name'])
-#                if 'icon' in sname and 'default' in sname:
-#                    icon_name = icon_data['name']
-#                elif 'icon' in sname and 'ls_title' in sname:
-#                    icon_name = icon['name']
+#            f = urllib.urlopen(icon_name)
+#            if not f.code == 200:
+#                icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, 'icon-default.png')
+#            else:
+##
+#            lookup_icon_url = url + '/tree/%s/Contents/Resources' % default_branch
 #
-#        icon_url = "https://raw.githubusercontent.com/%s/%s/Contents/Resources/" % (repo['full_name'], repo['default_branch'])
+#            for tag in HTML.ElementFromURL(lookup_icon_url).xpath('//div[@class="file-wrap"]//table[@class="files"]//tbody//tr//td/span'):
+#                if tag.xpath('./a/@class="js-directory-link"'):
+#                    icons = tag.xpath('./a/@title')
+#                    Log(icons)
+#                    for icon in icons:
+#                        if "icon" in icon and "default" in icon:
+#                            icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, icon)
+#                            Log(icon_name)
+#                        elif "icon" in icon and ls_title in icon:
+#                            icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, icon)
+#                            Log(icon_name)
+##
+#                test = tag.xpath('./@class')
+#                test = tag.xpath('./a/@href')[0]
+#            test_url = 'http://www.vh1.com/shows/'
+#            tag = HTML.ElementFromURL(test_url).xpath('//section[@id="sec-popshows"]//div[contains(@class,"promo-block")]/a/@href')[0]
+#            stuff = HTML.StringFromElement(tag)
+#            title = tag.xpath('.//td[class="content"]/text()')[0]
+#                Log(tag)
+#                Log(test)
+#
+#            f = urllib.urlopen(icon_name)
+#            if not f.code == 200:
+#                icon_url_search = SEARCH + 'code?q=icon+in:path+repo:%s' % String.Quote(full_name)
+#                icon_data = JSON.ObjectFromURL(icon_url_search)
+#                for icons in icon_data['items']:
+#                    icon_names = icons['name']
+#                    if "icon" in icon_names and "default" in icon_names:
+#                        icon_name = 'https://raw.githubusercontent.com/%s/%s/%s' % (full_name, default_branch, icons['path'])
+#                        Log(icon_name)
+#                    elif "icon" in icon_names and ls_title in icon_names:
+#                        icon_name = 'https://raw.githubusercontent.com/%s/%s/%s' % (full_name, default_branch, icons['path'])
+#                        Log(icon_name)
+#
+            try:
+                date = ",\n\nDate Last Modified: %s," % Datetime.ParseDate(git_results['pushed_at'])
+            except:
+                date = ""
 
-        try:
-            date = ",\n\nDate Last Modified: %s," % Datetime.ParseDate(repo['pushed_at'])
-        except:
-            date = ""
+            try:
+                score = "\n\nStars: %i" % git_results['stargazers_count']
+            except:
+                score = ""
 
-        try:
-            score = "\n\nStars: %i" % repo['stargazers_count']
-        except:
-            score = ""
+            try:
+                summary = score + date + "\n\nDescription: %s" % String.StripTags(git_results['description'].replace("<br />", "\n"))
+                summary = summary.strip()
+            except:
+                summary = None
 
-        try:
-            summary = score + date + "\n\nDescription: %s" % String.StripTags(repo['description'].replace("<br />", "\n"))
-            summary = summary.strip()
-        except:
-            summary = None
+            try:
+                thumb_url = icon_name
+            except:
+                thumb_url = ""
 
-        try:
-            thumb_url = "https://raw.githubusercontent.com/%s/%s/Contents/Resources/icon-default.png" % (full_name, default_branch)
-        except:
-            thumb_url = ""
+            new_plugin_info = {'title': git_results['name'].split('.')[0], 'bundle': git_results['name'],
+                    'type': ['Imported'], 'description':  git_results['description'],
+                    'repo': git_results['ssh_url'], 'branch': git_results['default_branch'],
+                    'identifier': 'com.plexapp.plugins.%s' % git_results['name'].lower().split('.')[0],
+                    'icon': 'icon-default.png', 'hidden': 'False', 'reason_hidden': '',
+                    'date added': time.strftime("%B %d, %Y"), 'tracking url': git_results['svn_url'] + '/archive/master.zip'}
 
-        oc.add(PopupDirectoryObject(key=Callback(PluginSearch), title=title, summary=summary, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=ICON)))
-
+            oc.add(PopupDirectoryObject(key=Callback(PluginSearch, new_plugin=new_plugin_info), title=title, summary=summary, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=NO_ICON)))
+        git_data_size = len(git_data)
+    Log(git_data_size)
     if len(oc) < 1:
         Log('still no value for objects')
         return ObjectContainer(header="Empty", message="There are no Channels to list right now.")
@@ -230,20 +299,73 @@ def PluginMenu(plugin):
     oc = ObjectContainer(title2=plugin['title'], no_cache=True)
     if Installed(plugin):
         if Dict['Installed'][plugin['title']]['updateAvailable'] == "True":
-            oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Update"))
+            oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Update", thumb=R('icon-update-blue.png')))
         else:
-            oc.add(DirectoryObject(key=Callback(CheckForUpdates, plugin=plugin, return_message=True, install=True), title="Check for Updates"))
-        oc.add(DirectoryObject(key=Callback(UnInstallPlugin, plugin=plugin), title="UnInstall"))
+            oc.add(DirectoryObject(key=Callback(CheckForUpdates, plugin=plugin, return_message=True, install=True), title="Check for Updates", thumb=R('icon-refresh.png')))
+        oc.add(DirectoryObject(key=Callback(UnInstallPlugin, plugin=plugin), title="UnInstall", thumb=R('icon-uninstall.png')))
     else:
-        oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Install"))
+        oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Install", thumb=R('icon-install.png')))
     return oc
 
 ################################################################################
 
-@route(PREFIX + '/search-popup')
-def PluginSearch():
-    oc = ObjectContainer(title2=title, no_cache=True)
+@route(PREFIX + '/search-popup', new_plugin=dict)
+def PluginSearch(new_plugin):
+    oc = ObjectContainer(title2=new_plugin['title'], no_cache=True)
+    oc.add(DirectoryObject(key=Callback(ImportPlugin, new_plugin=new_plugin), title="Import", thumb=R('icon-import.png')))
+    oc.add(DirectoryObject(key=Callback(RemovePlugin, new_plugin=new_plugin), title="Remove", thumb=R('icon-remove.png')))
     return oc
+
+################################################################################
+
+@route(PREFIX + '/import', new_plugin=dict)
+def ImportPlugin(new_plugin):
+    oc = ObjectContainer(title2='Import' + new_plugin['title'], no_cache=True)
+    try:
+        Log(new_plugin)
+
+        Log(IMPORT_DIR)
+        imp_init = Resource.Load('import.json')
+        imp_data = JSON.ObjectFromString(imp_init)
+
+        imp_data.append(new_plugin)
+
+        with io.open(IMPORT_DIR, 'wb') as f:
+            json.dump(imp_data, f, indent=4, sort_keys=True, separators=(',', ': '))
+        Log(new_plugin)
+        Log(IMPORT_DIR)
+        return ObjectContainer(header=NAME, message="Imported %s Successfully." % new_plugin['title'])
+    except:
+        Log(IMPORT_DIR)
+        imp_init = Resource.Load(IMPORT_DIR)
+        imp_data = JSON.ObjectFromString(imp_init)
+
+        imp_data.append(new_plugin)
+
+        with io.open(IMPORT_DIR, 'wb') as f:
+            json.dump(imp_data, f, indent=4, sort_keys=True, separators=(',', ': '))
+
+        Log(new_plugin)
+        return ObjectContainer(header=NAME, message="Failed to imported %s." % new_plugin['title'])
+
+################################################################################
+
+@route(PREFIX + '/remove', new_plugin=dict)
+def RemovePlugin(new_plugin):
+    try:
+        obj = json.load(io.open(IMPORT_DIR))
+
+        for i in xrange(len(obj)):
+            if obj[i]['title'] == new_plugin['title']:
+                obj.pop(i)
+                break
+
+        with io.open(IMPORT_DIR, 'wb') as f:
+            json.dump(obj, f, indent=4, sort_keys=True, separators=(',', ': '))
+
+        return ObjectContainer(header=NAME, message="Removed %s Plugin from import.json file." % new_plugin['title'])
+    except:
+        return ObjectContainer(header=NAME, message="Failed to Remove %s from import.json file." % new_plugin['title'])
 
 ################################################################################
 
@@ -251,6 +373,7 @@ def PluginSearch():
 def LoadData():
     userdata = Resource.Load(PLUGINS)
     return JSON.ObjectFromString(userdata)
+    Log(len(userdata))
 
 ################################################################################
 
@@ -430,7 +553,7 @@ def UpdateAll():
 def UnInstallPlugin(plugin):
     Logger('Uninstalling %s' % GetBundlePath(plugin), force=True)
     # Generate and set a key to use to verify DeleteFile and DeleteFolder were called from within this plugin.
-    code = genCode()
+    code = genCod()
     Dict['deleteCode'] = code
     try:
         DeleteFolder(GetBundlePath(plugin), code)
@@ -516,8 +639,8 @@ def DeleteFolder(folderPath, code):
 
 ################################################################################
 
-@route(PREFIX + '/genCode')
-def genCode(length=20):
+@route(PREFIX + '/genCod')
+def genCod(length=20):
     # Generate and return a random alphanumeric key.
     chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     code = ''.join(random.choice(chars) for x in range(length))
