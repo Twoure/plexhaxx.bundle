@@ -1329,6 +1329,20 @@
         "tracking url"    :     "http://bit.ly/1djEEI3"
     },
     {
+        "title"           :     "PlexHaxx",
+        "bundle"          :     "plexhaxx.bundle",
+        "type"            :     ["Application"],
+        "description"     :     "Updated version of the Unsupported App Store",
+        "repo"            :     "git@github.com:Twoure/plexhaxx.bundle.git",
+        "branch"          :     "master",
+        "identifier"      :     "com.plexapp.plugins.plexhaxx",
+        "icon"            :     "plexhaxx-icon.png",
+        "hidden"          :     "True",
+        "reason_hidden"   :     "don't want to update yet since still developing",
+        "date added"      :     "August 18, 2015",
+        "tracking url"    :     "http://bit.ly/1WDdyyJ"
+    },
+    {
         "title"           :     "Plex Tools",
         "bundle"          :     "PlexTools.bundle",
         "type"            :     ["Video"],
