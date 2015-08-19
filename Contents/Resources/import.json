@@ -129,22 +129,6 @@
     },
     {
         "branch": "master",
-        "bundle": "TVLand.bundle",
-        "date added": "August 16, 2015",
-        "description": "Plex channel for TV Land",
-        "hidden": "False",
-        "icon": "icon-default.png",
-        "identifier": "com.plexapp.plugins.tvland",
-        "reason_hidden": "",
-        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
-        "title": "TVLand",
-        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
-        "type": [
-            "Imported"
-        ]
-    },
-    {
-        "branch": "master",
         "bundle": "Cordkillers.bundle",
         "date added": "August 16, 2015",
         "description": "Plex plugin for the Cordkillers podcast",
@@ -203,6 +187,166 @@
         "repo": "git@github.com:DinoSane/9GagTV.bundle.git",
         "title": "9GagTV",
         "tracking url": "https://github.com/DinoSane/9GagTV.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "KissAnime.bundle",
+        "date added": "August 18, 2015",
+        "description": "Version 1.0",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.kissanime",
+        "reason_hidden": "",
+        "repo": "git@github.com:jwsolve/KissAnime.bundle.git",
+        "title": "KissAnime",
+        "tracking url": "https://github.com/jwsolve/KissAnime.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "KissAnime.bundle",
+        "date added": "August 18, 2015",
+        "description": "Version 1.0",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.kissanime",
+        "reason_hidden": "",
+        "repo": "git@github.com:jwsolve/KissAnime.bundle.git",
+        "title": "KissAnime",
+        "tracking url": "https://github.com/jwsolve/KissAnime.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TekThing.bundle",
+        "date added": "August 18, 2015",
+        "description": "Plex Channel for TekThing.com podcast.",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tekthing",
+        "reason_hidden": "",
+        "repo": "git@github.com:adamskoog/TekThing.bundle.git",
+        "title": "TekThing",
+        "tracking url": "https://github.com/adamskoog/TekThing.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 18, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 18, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 18, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 18, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 18, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 18, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
+        "type": [
+            "Imported"
+        ]
+    },
+    {
+        "branch": "master",
+        "bundle": "TVLand.bundle",
+        "date added": "August 18, 2015",
+        "description": "Plex channel for TV Land",
+        "hidden": "False",
+        "icon": "icon-default.png",
+        "identifier": "com.plexapp.plugins.tvland",
+        "reason_hidden": "",
+        "repo": "git@github.com:shopgirl284/TVLand.bundle.git",
+        "title": "TVLand",
+        "tracking url": "https://github.com/shopgirl284/TVLand.bundle/archive/master.zip",
         "type": [
             "Imported"
         ]
