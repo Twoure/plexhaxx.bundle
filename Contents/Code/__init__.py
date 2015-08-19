@@ -17,9 +17,6 @@ PREFS_ICON  = 'icon-prefs.png'
 NO_ICON     = 'icon-no-image.png'
 
 PLUGINS     = 'plugin_details.json'
-IMPORT_DIR  = os.path.join(os.getcwd(), '../../../Plug-ins/plexhaxx.bundle/Contents/Resources/import.json')
-SEARCH_DUMP = os.path.join(os.getcwd(), '../../../Plug-ins/plexhaxx.bundle/Contents/Resources/search_dump.json')
-#IMPORT_DIR  = 'import.json'
 
 SEARCH      = 'https://api.github.com/search/'
 
@@ -163,13 +160,12 @@ def Search(page_count, query=''):
     local_url = SEARCH + 'repositories?page=%s&per_page=30&q=%s+bundle&sort=updated&order=desc' % (page_count, String.Quote(query, usePlus=True))
     data = JSON.ObjectFromURL(local_url)
 
-    total_count = int(data['total_count'])
-    total_count_per_page = total_count - (30 * int(page_count))
-    Log(total_count)
-    Log(total_count_per_page)
+    git_data = []
 
     for git_results in data['items']:
         if ".bundle" in git_results['name']:
+
+            git_data.append(git_results)
 
             title = git_results['name']
             ls_title = title.lower().split('.')[0]
@@ -221,13 +217,24 @@ def Search(page_count, query=''):
                     'icon': 'icon-default.png', 'hidden': 'False', 'reason_hidden': '',
                     'date added': time.strftime("%B %d, %Y"), 'tracking url': git_results['svn_url'] + '/archive/master.zip'}
 
-            oc.add(DirectoryObject(key=Callback(PluginSearch, new_plugin=new_plugin_info), title=title, summary=summary, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=NO_ICON)))
+            oc.add(DirectoryObject(key=Callback(PluginSearch, plugin=new_plugin_info), title=title, summary=summary, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=NO_ICON)))
+
+    git_data_size = len(git_data)
+    total_count = int(data['total_count'])
+    Log("Total Possible Channels Found = " + str(total_count))
+    Log("Actual Plex Channels Found = " + str(git_data_size) + " on page " + str(page_count))
+
+    if total_count <= 30:
+        total_count_per_page = total_count
+    else:
+        total_count_per_page = total_count - (30 * int(page_count))
+    Log("Channels left to display = " + str(total_count_per_page))
 
     if len(oc) < 1:
         Log('still no value for objects')
         return ObjectContainer(header="Empty", message="There are no Channels to list right now.")
     else:
-        if total_count_per_page >= 30:
+        if total_count_per_page > 30:
             oc.add(NextPageObject(key = Callback(Search, page_count=int(page_count)+1, query=query),
                 title = "More...", thumb=R('icon-next.png')))
         return oc
@@ -269,63 +276,59 @@ def PluginMenu(plugin):
 
 ################################################################################
 
-@route(PREFIX + '/search-popup', new_plugin=dict)
-def PluginSearch(new_plugin):
-    oc = ObjectContainer(title2=new_plugin['title'], no_cache=True)
-    oc.add(DirectoryObject(key=Callback(ImportPlugin, new_plugin=new_plugin), title="Import", thumb=R('icon-import.png')))
-    oc.add(DirectoryObject(key=Callback(RemovePlugin, new_plugin=new_plugin), title="Remove", thumb=R('icon-remove.png')))
+@route(PREFIX + '/search-popup', plugin=dict)
+def PluginSearch(plugin):
+    oc = ObjectContainer(title2=plugin['title'], no_cache=True)
+    oc.add(DirectoryObject(key=Callback(ImportPlugin, plugin=plugin), title="Import", thumb=R('icon-import.png')))
+    oc.add(DirectoryObject(key=Callback(RemovePlugin, plugin=plugin), title="Remove", thumb=R('icon-remove.png')))
     return oc
 
 ################################################################################
 
-@route(PREFIX + '/import', new_plugin=dict)
-def ImportPlugin(new_plugin):
-    oc = ObjectContainer(title2='Import' + new_plugin['title'], no_cache=True)
+@route(PREFIX + '/import', plugin=dict)
+def ImportPlugin(plugin):
+    oc = ObjectContainer(title2='Import' + plugin['title'], no_cache=True)
+
+    IMPORT_DIR = GetImportFile()
+
     try:
-        Log(new_plugin)
+        Log(plugin)
 
-        Log(IMPORT_DIR)
-        imp_init = Resource.Load('import.json')
-        imp_data = JSON.ObjectFromString(imp_init)
-
-        imp_data.append(new_plugin)
-
-        with io.open(IMPORT_DIR, 'wb') as f:
-            json.dump(imp_data, f, indent=4, sort_keys=True, separators=(',', ': '))
-        Log(new_plugin)
-        Log(IMPORT_DIR)
-        return ObjectContainer(header=NAME, message="Imported %s Successfully." % new_plugin['title'])
-    except:
-        Log(IMPORT_DIR)
         imp_init = Resource.Load(IMPORT_DIR)
         imp_data = JSON.ObjectFromString(imp_init)
 
-        imp_data.append(new_plugin)
+        imp_data.append(plugin)
 
         with io.open(IMPORT_DIR, 'wb') as f:
             json.dump(imp_data, f, indent=4, sort_keys=True, separators=(',', ': '))
-
-        Log(new_plugin)
-        return ObjectContainer(header=NAME, message="Failed to imported %s." % new_plugin['title'])
+        Log(plugin)
+        Log(IMPORT_DIR)
+        return ObjectContainer(header=NAME, message="Imported %s Successfully." % plugin['title'])
+    except:
+        Log(plugin)
+        Log(IMPORT_DIR)
+        return ObjectContainer(header=NAME, message="Failed to imported %s." % plugin['title'])
 
 ################################################################################
 
-@route(PREFIX + '/remove', new_plugin=dict)
-def RemovePlugin(new_plugin):
+@route(PREFIX + '/remove', plugin=dict)
+def RemovePlugin(plugin):
+    IMPORT_DIR = GetImportFile()
+
     try:
         obj = json.load(io.open(IMPORT_DIR))
 
         for i in xrange(len(obj)):
-            if obj[i]['title'] == new_plugin['title']:
+            if obj[i]['title'] == plugin['title']:
                 obj.pop(i)
                 break
 
         with io.open(IMPORT_DIR, 'wb') as f:
             json.dump(obj, f, indent=4, sort_keys=True, separators=(',', ': '))
 
-        return ObjectContainer(header=NAME, message="Removed %s Plugin from import.json file." % new_plugin['title'])
+        return ObjectContainer(header=NAME, message="Removed %s Plugin from import.json file." % plugin['title'])
     except:
-        return ObjectContainer(header=NAME, message="Failed to Remove %s from import.json file." % new_plugin['title'])
+        return ObjectContainer(header=NAME, message="Failed to Remove %s from import.json file." % plugin['title'])
 
 ################################################################################
 
@@ -513,7 +516,7 @@ def UpdateAll():
 def UnInstallPlugin(plugin):
     Logger('Uninstalling %s' % GetBundlePath(plugin), force=True)
     # Generate and set a key to use to verify DeleteFile and DeleteFolder were called from within this plugin.
-    code = genCod()
+    code = genCode()
     Dict['deleteCode'] = code
     try:
         DeleteFolder(GetBundlePath(plugin), code)
@@ -599,8 +602,8 @@ def DeleteFolder(folderPath, code):
 
 ################################################################################
 
-@route(PREFIX + '/genCod')
-def genCod(length=20):
+@route(PREFIX + '/genCode')
+def genCode(length=20):
     # Generate and return a random alphanumeric key.
     chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     code = ''.join(random.choice(chars) for x in range(length))
@@ -726,6 +729,34 @@ def GetBundlePath(plugin):
 
 ################################################################################
 
+@route(PREFIX + '/resource-path', plugin=dict)
+def GetResourcPath(plugin):
+    return Core.storage.join_path(GetPluginDirPath(), (plugin['bundle'] + '/Contents/Resources/'))
+
+################################################################################
+
+@route(PREFIX + '/plexhaxx-resource-path')
+def GetPlexHaxxResourcPath():
+    try:
+        for plugin in Dict['plugins']:
+            if plugin['title'] == 'PlexHaxx':
+                return Core.storage.join_path(GetPluginDirPath(), (plugin['bundle'] + '/Contents/Resources/'))
+#                return os.path.abspath(Core.storage.join_path(GetPluginDirPath(), (plugin['bundle'] + '/Contents/Resources/')))
+    except:
+        return
+
+################################################################################
+
+@route(PREFIX + '/import-file')
+def GetImportFile():
+    for plugin in Dict['plugins']:
+        if plugin['title'] == 'PlexHaxx':
+            plexhaxx_plugin = plugin
+
+    return Core.storage.join_path(GetSupportPath('Data', plexhaxx_plugin),'import.json')
+
+################################################################################
+
 @route(PREFIX + '/supportpath', plugin=dict)
 def GetSupportPath(directory, plugin):
     if directory == 'Preferences':
@@ -759,4 +790,4 @@ def MarkUpdated(title, version=None):
         Dict['Installed'][title]['version'] = version
         Logger('%s "version" set to: %s' % (title, Dict['Installed'][title]['version']))
     Dict.Save()
-    return
+    retur
