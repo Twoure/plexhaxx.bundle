@@ -1,26 +1,30 @@
-import os
-import time
-import random
-import json
-import io
-import time
-
 ###############################################################################
+#                                                                             #
+#                               PlexHaxx                                      #
+#                                                                             #
+###############################################################################
+import os, time, random, json, io
 
+# Set global variables
 PREFIX      = "/video/plexhaxx"
-
 NAME        = 'plexhaxx'
-
 ART         = 'art-default.png'
 ICON        = 'icon-default.png'
 PREFS_ICON  = 'icon-prefs.png'
 NO_ICON     = 'icon-no-image.png'
 
-PLUGINS     = 'plugin_details.json'
+# Trying to move plugin_details to Data folder, but want to source
+#   plugin_details from Resource dir on fresh install.
+#   Also need a way to consolidate list when PlexHaxx is updated from GitHub.
+#PLUGINS     = 'plugin_details.json'
 
+# Base URL for Search function
 SEARCH      = 'https://api.github.com/search/'
 
 DEV_MODE    = True
+
+# Set clients thats should display content as list
+LIST_VIEW_CLIENTS = ['Android','iOS']
 
 ################################################################################
 
@@ -156,87 +160,123 @@ def GenreMenu(genre):
 @route(PREFIX + '/search')
 def Search(page_count, query=''):
 
-    oc = ObjectContainer(title2="Search")
-    local_url = SEARCH + 'repositories?page=%s&per_page=30&q=%s+bundle&sort=updated&order=desc' % (page_count, String.Quote(query, usePlus=True))
+    number_per_page = 30
+
+    local_url = SEARCH + 'repositories?page=%s&per_page=%s&q=bundle+%s&sort=updated&order=desc' % (page_count, number_per_page, String.Quote(query, usePlus=True))
     data = JSON.ObjectFromURL(local_url)
+    total_pages = (data['total_count'] / number_per_page) + 1
+    """
+    channel_count = []
 
-    git_data = []
+    for channel in data['items']:
+        if ".bundle" in channel['name'] and not channel['size'] == 0:
 
-    for git_results in data['items']:
-        if ".bundle" in git_results['name']:
+            channel_count.append(channel)
+    """
+    oc = ObjectContainer(title2="Search Results: %s, Page %s of %s" % (data['total_count'], page_count, total_pages))
 
-            git_data.append(git_results)
+    channel_count = []
 
-            title = git_results['name']
+    for channel in data['items']:
+        if ".bundle" in channel['name'] and not channel['size'] == 0:
+
+            channel_count.append(channel)
+
+            title = channel['name']
             ls_title = title.lower().split('.')[0]
-            url = git_results['html_url']
-            full_name = git_results['full_name']
-            default_branch = git_results['default_branch']
-##
+            url = channel['html_url']
+            full_name = channel['full_name']
+            default_branch = channel['default_branch']
+            date_modified = Datetime.ParseDate(channel['pushed_at'])
+            user_name = channel['owner']['login']
+            date = date_modified.ctime()
+
             icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, 'icon-default.png')
-##
-#            lookup_icon_url = url + '/tree/%s/Contents/Resources' % default_branch
-#
-#            for tag in HTML.ElementFromURL(lookup_icon_url).xpath('//div[@class="file-wrap"]//table[@class="files"]//tbody//tr//td/span'):
-#                if tag.xpath('./a/@class="js-directory-link"'):
-#                    icons = tag.xpath('./a/@title')
-#                    Log(icons)
-#                    for icon in icons:
-#                        if "icon" in icon and "default" in icon:
-#                            icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, icon)
-#                            Log(icon_name)
-#                        elif "icon" in icon and ls_title in icon:
-#                            icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, icon)
-#                            Log(icon_name)
-##
-            try:
-                date = ",\n\nDate Last Modified: %s," % Datetime.ParseDate(git_results['pushed_at'])
-            except:
-                date = ""
+            """
+            lookup_icon_url = url + '/tree/%s/Contents/Resources' % default_branch
+
+            for tag in HTML.ElementFromURL(lookup_icon_url).xpath('//div[@class="file-wrap"]//table[@class="files"]//tbody//tr//td/span'):
+                if tag.xpath('./a/@class="js-directory-link"'):
+                    icons = tag.xpath('./a/@title')
+                    Log(icons)
+                    for icon in icons:
+                        if "icon" in icon and "default" in icon:
+                            icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, icon)
+                            Log(icon_name)
+                        elif "icon" in icon and ls_title in icon:
+                            icon_name = 'https://raw.githubusercontent.com/%s/%s/Contents/Resources/%s' % (full_name, default_branch, icon)
+                            Log(icon_name)
+            """
 
             try:
-                score = "\n\nStars: %i" % git_results['stargazers_count']
+                desc = String.StripTags(channel['description'].replace("<br />", "\n"))
+                if not desc:
+                    desc = 'Not Avalible :('
             except:
-                score = ""
+                desc = 'Not Avalible :('
 
-            try:
-                summary = score + date + "\n\nDescription: %s" % String.StripTags(git_results['description'].replace("<br />", "\n"))
-                summary = summary.strip()
-            except:
-                summary = None
+            new_channel = {'title': channel['name'].split('.')[0], 'bundle': channel['name'],
+                    'type': ['Imported'], 'description':  desc,
+                    'repo': channel['ssh_url'], 'branch': channel['default_branch'],
+                    'identifier': 'com.plexapp.plugins.%s' % channel['name'].lower().split('.')[0],
+                    'icon': 'icon-default.png', 'hidden': 'False', 'reason_hidden': '',
+                    'date added': time.strftime("%B %d, %Y"), 'tracking url': channel['svn_url'] + '/archive/master.zip'}
+
+            score = channel['stargazers_count']
+
+            if Installed(new_channel):
+                if Dict['Installed'][new_channel['title']]['updateAvailable'] == "True":
+                    status = 'Update available'
+                else:
+                    status = 'Installed'
+            else:
+                for a_channel in Dict['plugins']:
+                    if not a_channel['bundle'].lower() == new_channel['bundle'].lower():
+                        match = ""
+                        continue
+                    else:
+                        match = a_channel['bundle'].lower()
+                        break
+                if match == new_channel['bundle'].lower():
+                    status = 'Not Installed'
+                else:
+                    status = 'Ready to Import'
+
+            summary = ('Star Rating: ' + str(score) + ' | Description: ' + desc).strip()
+            tagline = ('Date Modified: ' + str(date) + ' | Status: ' + status + ' | User: ' + user_name).strip()
 
             try:
                 thumb_url = icon_name
             except:
                 thumb_url = ""
 
-            new_plugin_info = {'title': git_results['name'].split('.')[0], 'bundle': git_results['name'],
-                    'type': ['Imported'], 'description':  git_results['description'],
-                    'repo': git_results['ssh_url'], 'branch': git_results['default_branch'],
-                    'identifier': 'com.plexapp.plugins.%s' % git_results['name'].lower().split('.')[0],
-                    'icon': 'icon-default.png', 'hidden': 'False', 'reason_hidden': '',
-                    'date added': time.strftime("%B %d, %Y"), 'tracking url': git_results['svn_url'] + '/archive/master.zip'}
+            Logger("\n----------\nUser Name:%s, Date:%s, Score:%s\nDescription:%s\nSummary:%s\nTagline:%s\nIcon URL:%s\n----------"
+                    % (user_name, str(date), str(score), desc, summary, tagline, thumb_url))
+            # Add Channels to view
+            oc.add(DirectoryObject(key=Callback(PluginMenu, plugin=new_channel),
+                title=title, summary=summary, tagline=tagline, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=NO_ICON)))
 
-            oc.add(DirectoryObject(key=Callback(PluginSearch, plugin=new_plugin_info), title=title, summary=summary, thumb=Resource.ContentsOfURLWithFallback(url=thumb_url, fallback=NO_ICON)))
+    channel_count_left = len(channel_count)
+    total_count = (data['total_count'])
+    Log("Total Possible Channels Found = %i" % (total_count))
+    Log("Actual Plex Channels Found = %i on page %i" % (channel_count_left, page_count))
 
-    git_data_size = len(git_data)
-    total_count = int(data['total_count'])
-    Log("Total Possible Channels Found = " + str(total_count))
-    Log("Actual Plex Channels Found = " + str(git_data_size) + " on page " + str(page_count))
-
-    if total_count <= 30:
-        total_count_per_page = total_count
+    if total_count <= number_per_page:
+        channel_count_left = total_count
     else:
-        total_count_per_page = total_count - (30 * int(page_count))
-    Log("Channels left to display = " + str(total_count_per_page))
+        total_count_per_page = total_count - (number_per_page * int(page_count))
+    Log("Channels left to display = %i" % (total_count_per_page))
 
-    if len(oc) < 1:
+    if len(oc) < 1 and total_count_per_page < 0:
         Log('still no value for objects')
         return ObjectContainer(header="Empty", message="There are no Channels to list right now.")
     else:
         if total_count_per_page > 30:
             oc.add(NextPageObject(key = Callback(Search, page_count=int(page_count)+1, query=query),
-                title = "More...", thumb=R('icon-next.png')))
+                title="More...", summary="%i Channels left to display" % (total_count_per_page),
+                tagline="%i Possible Channels" % (data['total_count']), thumb=R('icon-next.png')))
+        if channel_count_left <= 0:
+            time.sleep(5)
         return oc
 
 ################################################################################
@@ -264,23 +304,43 @@ def InstalledMenu():
 @route(PREFIX + '/popup', plugin=dict)
 def PluginMenu(plugin):
     oc = ObjectContainer(title2=plugin['title'], no_cache=True)
+
+    if Client.Platform in LIST_VIEW_CLIENTS:
+        icon_update = None
+        icon_c_updates = None
+        icon_uninstall = None
+        icon_install = None
+        icon_remove = None
+        icon_import = None
+    else:
+        icon_update = R('icon-update-blue.png')
+        icon_c_updates = R('icon-refresh.png')
+        icon_uninstall = R('icon-uninstall.png')
+        icon_install = R('icon-install.png')
+        icon_remove = R('icon-remove.png')
+        icon_import = R('icon-import.png')
+
     if Installed(plugin):
         if Dict['Installed'][plugin['title']]['updateAvailable'] == "True":
-            oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Update", thumb=R('icon-update-blue.png')))
+            oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Update", thumb=icon_update))
         else:
-            oc.add(DirectoryObject(key=Callback(CheckForUpdates, plugin=plugin, return_message=True, install=True), title="Check for Updates", thumb=R('icon-refresh.png')))
-        oc.add(DirectoryObject(key=Callback(UnInstallPlugin, plugin=plugin), title="UnInstall", thumb=R('icon-uninstall.png')))
+            oc.add(DirectoryObject(key=Callback(CheckForUpdates, plugin=plugin, return_message=True, install=True),
+                title="Check for Updates", thumb=icon_c_updates))
+        oc.add(DirectoryObject(key=Callback(UnInstallPlugin, plugin=plugin), title="UnInstall", thumb=icon_uninstall))
     else:
-        oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Install", thumb=R('icon-install.png')))
-    return oc
-
-################################################################################
-
-@route(PREFIX + '/search-popup', plugin=dict)
-def PluginSearch(plugin):
-    oc = ObjectContainer(title2=plugin['title'], no_cache=True)
-    oc.add(DirectoryObject(key=Callback(ImportPlugin, plugin=plugin), title="Import", thumb=R('icon-import.png')))
-    oc.add(DirectoryObject(key=Callback(RemovePlugin, plugin=plugin), title="Remove", thumb=R('icon-remove.png')))
+        for a_plugin in Dict['plugins']:
+            if not a_plugin['bundle'].lower() == plugin['bundle'].lower():
+                match = ""
+                continue
+            else:
+                match = a_plugin['bundle'].lower()
+                break
+        Log(match)
+        if match == plugin['bundle'].lower():
+            oc.add(DirectoryObject(key=Callback(InstallPlugin, plugin=plugin), title="Install", thumb=icon_install))
+            oc.add(DirectoryObject(key=Callback(RemovePlugin, plugin=plugin), title="Remove", thumb=icon_remove))
+        else:
+            oc.add(DirectoryObject(key=Callback(ImportPlugin, plugin=plugin), title="Import", thumb=icon_import))
     return oc
 
 ################################################################################
@@ -317,6 +377,7 @@ def RemovePlugin(plugin):
 
     try:
         obj = json.load(io.open(IMPORT_DIR))
+        Log(obj)
 
         for i in xrange(len(obj)):
             if obj[i]['title'] == plugin['title']:
@@ -334,9 +395,8 @@ def RemovePlugin(plugin):
 
 @route(PREFIX + '/load')
 def LoadData():
-    userdata = Resource.Load(PLUGINS)
+    userdata = Resource.Load(GetImportFile())
     return JSON.ObjectFromString(userdata)
-    Log(len(userdata))
 
 ################################################################################
 
@@ -737,11 +797,12 @@ def GetResourcPath(plugin):
 
 @route(PREFIX + '/plexhaxx-resource-path')
 def GetPlexHaxxResourcPath():
+    # Find the Resource Path for PlexHaxx
+    # Gives the ability to write files to the Resource path
     try:
         for plugin in Dict['plugins']:
             if plugin['title'] == 'PlexHaxx':
                 return Core.storage.join_path(GetPluginDirPath(), (plugin['bundle'] + '/Contents/Resources/'))
-#                return os.path.abspath(Core.storage.join_path(GetPluginDirPath(), (plugin['bundle'] + '/Contents/Resources/')))
     except:
         return
 
@@ -753,7 +814,7 @@ def GetImportFile():
         if plugin['title'] == 'PlexHaxx':
             plexhaxx_plugin = plugin
 
-    return Core.storage.join_path(GetSupportPath('Data', plexhaxx_plugin),'import.json')
+    return Core.storage.join_path(GetSupportPath('Data', plexhaxx_plugin),'plugin_details.json')
 
 ################################################################################
 
@@ -790,4 +851,4 @@ def MarkUpdated(title, version=None):
         Dict['Installed'][title]['version'] = version
         Logger('%s "version" set to: %s' % (title, Dict['Installed'][title]['version']))
     Dict.Save()
-    retur
+    return
